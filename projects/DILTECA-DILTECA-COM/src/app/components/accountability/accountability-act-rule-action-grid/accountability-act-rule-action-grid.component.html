@@ -1,0 +1,161 @@
+<kendo-pdf-export #pdf paperSize="A4" margin="2cm">
+
+    <kendo-grid [rowClass]="ROW_CLASS"
+    
+    id="grid" [sortable]="true" [height]="componentConfig.gridHeight"
+    [resizable] ="true"
+    (cellClick)="cellClickHandler($event)" 
+    (add)="addHandler()"
+    (remove)="removeHandler($event)"
+    [filter]="state.filter"
+    [filterable]= "isFilterable"
+    [columnMenu]="isColumnMenu"
+    (dataStateChange)="dataStateChange($event)"
+    [resizable]="true"
+    [sortable]="true">
+
+    
+    
+      
+        <ng-template kendoGridToolbarTemplate *ngIf="showToolBar">
+        <legend class="k-form-legend" *ngIf="componentConfig.showTitle">{{ title }}</legend>
+
+
+        
+        
+        <button  kendoButton [disabled]="isSearch" [icon]="'save'" title="save" (click)="saveChanges(grid);" *ngIf="!isChild && componentConfig.updateable"></button >
+        <button  kendoButton [icon]="'print'" title="print" (click)="printScreen()" *ngIf="componentConfig.toolsShow"></button >
+
+        
+            <button  [disabled]="isSearch" kendoButton  title="Enter Query" (click)="enterQuery(grid);" *ngIf="componentConfig.queryable">{{starServices.getNLS([],'ENTER_QUERY','Enter Query')}}</button >
+            <button  [fillMode]="isSearch ? 'outline' : 'solid' " kendoButton [icon]="'zoom'" title="Execute Query"  (click)="executeQuery(grid);" *ngIf="componentConfig.queryable"></button >
+            <button  [fillMode]="isSearch ? 'outline' : 'solid' " kendoButton [icon]="'cancel'" title="Cancel"  (click)="cancelHandler()" ></button >
+        
+
+            <button  [icon]="'plus'" title="Insert Record"  kendoGridAddCommand *ngIf="componentConfig.insertable && !isSearch"></button >
+            <button title="Delete Record"  kendoButton [icon]="'trash'" (click)="removeHandler($event)"  *ngIf="componentConfig.removeable && !isSearch">Remove</button >
+
+        
+        <button  kendoButton [icon]="'menu'" title="Show/Hide Menu"  (click)="toggleColumnMenu()" ></button >
+            <div *ngIf="isColumnMenu">
+				<button  kendoButton [icon]="'filter'" title="Show/Hide Filter options"  (click)="toggleFilter()" ></button >
+            <button  [icon]="'file-pdf'" title="Export to PDF"  kendoGridPDFCommand ></button >
+            <button  [icon]="'file-excel'" title="Export to Excel"  kendoGridExcelCommand ></button > 
+			</div>
+            
+            <button  kendoButton *ngIf="starServices.helpMsg_grid !=='' " [fillMode]="isSearch ? 'outline' : 'solid' "  >{{starServices.helpMsg_grid}}</button>		
+            
+
+    
+    </ng-template>
+
+
+	<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}" field="DISABLED" title="{{starServices.getNLS([],'accountability_ACT_RULE_ACTION_GRID.actruleActionAccountabilityActRuleActionGrid.DISABLED','Disabled')}}" [width]="40"     [editable]=" !(disabledColumns.indexOf('DISABLED') > -1)  "
+
+ [hidden]="hiddenColumns.indexOf('DISABLED') > -1" >
+		<ng-template kendoGridCellTemplate let-dataItem> {{lkpArrGetDISABLED(dataItem.DISABLED)?.CODETEXT_LANG}} </ng-template>
+		<ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+		<kendo-dropdownlist  [data]="lkpArrDISABLED"  textField="CODETEXT_LANG" valueField="CODE"
+		 (valueChange)="valueChangeDISABLED($event)" 
+		[valuePrimitive]="true" [formControl]="formGroup.get('DISABLED')">
+		</kendo-dropdownlist>
+		</ng-template>
+	</kendo-grid-column>
+
+	<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}"  [editable]=" !(disabledColumns.indexOf('RULE_ID') > -1)  && !primarKeyReadOnlyArr.isRULE_IDreadOnly  "
+
+ [hidden]="hiddenColumns.indexOf('RULE_ID') > -1" 		 title="{{starServices.getNLS([],'accountability_ACT_RULE_ACTION_GRID.actruleActionAccountabilityActRuleActionGrid.RULE_ID','Rule Id')}}"  [width]="40">
+		 <ng-template kendoGridCellTemplate let-dataItem> {{dataItem.RULE_ID}}</ng-template>
+		<ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+		<input  (blur)="onBlur_RULE_ID()"    [formControl]="formGroup.get('RULE_ID')" [placeholder]="starServices.getNLS([],'accountability_ACT_RULE_ACTION_GRID.actruleActionAccountabilityActRuleActionGrid.RULE_ID_Hint','Please enter Rule Id')" />
+		</ng-template>
+		</kendo-grid-column>
+
+	<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}"  [editable]=" !(disabledColumns.indexOf('ACTION_ORDER') > -1)  "
+
+ [hidden]="hiddenColumns.indexOf('ACTION_ORDER') > -1" 		 title="{{starServices.getNLS([],'accountability_ACT_RULE_ACTION_GRID.actruleActionAccountabilityActRuleActionGrid.ACTION_ORDER','Action Order')}}"  [width]="40">
+		 <ng-template kendoGridCellTemplate let-dataItem> {{dataItem.ACTION_ORDER}}</ng-template>
+		<ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+		<input  (blur)="onBlur_ACTION_ORDER()"    [formControl]="formGroup.get('ACTION_ORDER')" [placeholder]="starServices.getNLS([],'accountability_ACT_RULE_ACTION_GRID.actruleActionAccountabilityActRuleActionGrid.ACTION_ORDER_Hint','Please enter Action Order')" />
+		</ng-template>
+		</kendo-grid-column>
+
+	<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}"  [editable]=" !(disabledColumns.indexOf('ACTION_ID') > -1)  && !primarKeyReadOnlyArr.isACTION_IDreadOnly  "
+
+ [hidden]="hiddenColumns.indexOf('ACTION_ID') > -1" 		 title="{{starServices.getNLS([],'accountability_ACT_RULE_ACTION_GRID.actruleActionAccountabilityActRuleActionGrid.ACTION_ID','Action Id')}}"  [width]="40">
+		 <ng-template kendoGridCellTemplate let-dataItem> {{dataItem.ACTION_ID}}</ng-template>
+		<ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+		<input  (blur)="onBlur_ACTION_ID()"    [formControl]="formGroup.get('ACTION_ID')" [placeholder]="starServices.getNLS([],'accountability_ACT_RULE_ACTION_GRID.actruleActionAccountabilityActRuleActionGrid.ACTION_ID_Hint','Please enter Action Id')" />
+		</ng-template>
+		</kendo-grid-column>
+
+	<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}" field="ACTION_CODE" title="{{starServices.getNLS([],'accountability_ACT_RULE_ACTION_GRID.actruleActionAccountabilityActRuleActionGrid.ACTION_CODE','Action Code')}}" [width]="120"     [editable]=" !(disabledColumns.indexOf('ACTION_CODE') > -1)  "
+
+ [hidden]="hiddenColumns.indexOf('ACTION_CODE') > -1" >
+		<ng-template kendoGridCellTemplate let-dataItem> {{lkpArrGetACTION_CODE(dataItem.ACTION_CODE)?.CODETEXT_LANG}} </ng-template>
+		<ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+		<kendo-dropdownlist  [data]="lkpArrACTION_CODE"  textField="CODETEXT_LANG" valueField="CODE"
+		 (valueChange)="valueChangeACTION_CODE($event)" 
+		[valuePrimitive]="true" [formControl]="formGroup.get('ACTION_CODE')">
+		</kendo-dropdownlist>
+		</ng-template>
+	</kendo-grid-column>
+
+	<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}"  *ngIf=false  [editable]=" !(disabledColumns.indexOf('LOGNAME') > -1)  "
+
+ [hidden]="hiddenColumns.indexOf('LOGNAME') > -1" 		 title="{{starServices.getNLS([],'accountability_ACT_RULE_ACTION_GRID.actruleActionAccountabilityActRuleActionGrid.LOGNAME','Logname')}}"  [width]="120">
+		 <ng-template kendoGridCellTemplate let-dataItem> {{dataItem.LOGNAME}}</ng-template>
+		<ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+		<input  (blur)="onBlur_LOGNAME()"    [formControl]="formGroup.get('LOGNAME')" [placeholder]="starServices.getNLS([],'accountability_ACT_RULE_ACTION_GRID.actruleActionAccountabilityActRuleActionGrid.LOGNAME_Hint','Please enter Logname')" />
+		</ng-template>
+		</kendo-grid-column>
+
+	<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}" field="LOGDATE"  [width]="40"	filter="date"	 editor="date"  title="{{starServices.getNLS([],'accountability_ACT_RULE_ACTION_GRID.actruleActionAccountabilityActRuleActionGrid.LOGDATE','Logdate')}}" *ngIf=false  
+ [editable]=" !(disabledColumns.indexOf('LOGDATE') > -1)  "
+
+ [hidden]="hiddenColumns.indexOf('LOGDATE') > -1" 		[format]="paramConfig.DateFormat">
+		<ng-template kendoGridEditTemplate  let-dataItem let-formGroup="formGroup">
+		<kendo-datetimepicker [format]="this.paramConfig.DateTimeFormat" ngDefaultControl	 #LOGDATE
+		 (valueChange)="valueChangeLOGDATE($event)"   >
+		</kendo-datetimepicker>
+		</ng-template>
+		</kendo-grid-column>
+
+
+
+
+    
+                       <kendo-grid-pdf [fileName]="PDFfileName" [allPages]="true" paperSize="A4" [repeatHeaders]="true" [landscape]="true">
+                        <kendo-grid-pdf-margin top="2cm" left="1cm" right="1cm" bottom="2cm"></kendo-grid-pdf-margin>
+                        <ng-template kendoGridPDFTemplate let-pageNum="pageNum" let-totalPages="totalPages">
+                         <div class="page-template">
+                            <div class="header">
+                              <div style="float: center">{{ title }}</div>
+                            </div>
+                            <div class="footer">
+                              Page {{ pageNum }} of {{ totalPages }}
+                            </div>
+                          </div>
+                        </ng-template>
+                    </kendo-grid-pdf>
+                    <kendo-grid-excel fileName="ExcelfileName" ></kendo-grid-excel>
+    
+    </kendo-grid>
+    
+  <app-dsp-upload (saveCompletedOutput)="this.starServices.att_img_saveGridCompletedHandler($event,this)"
+			[setComponentConfig_Input]="DSP_UPLOADConfig">
+		</app-dsp-upload>
+
+    </kendo-pdf-export>
+
+<div [hidden]="!showCodeDetails">
+	<kendo-dialog 
+	(close)="showCodeDetails=false;setlookupArrDef();" resizable="true" [minWidth]="800" [width]="700" [height]="500"
+	  title="Add Code">
+	  <app-som-tabs-codes-grid 
+	  [detail_Input]="grid_som_tabs_codes"  
+	  [setComponentConfig_Input]="SOM_TABS_CODESConfig">
+	</app-som-tabs-codes-grid>
+  
+	</kendo-dialog>
+  </div>

@@ -1,0 +1,91 @@
+<div>
+    <legend  class="k-form-legend">{{ this.starServices.getNLS([],"accountability_ACT_RULE_DEF_FORM.actruleDefAccountabilityActRuleDefForm.component_title","Act Rule Def Accountability Act Rule Def Form") }}</legend>
+<div class="form-toolbar"> </div>
+<kendo-toolbar class="form-toolbar" *ngIf="showToolBar">
+    <kendo-toolbar-button kendoButton [icon]="'save'" title="{{starServices.getNLS([],'SAVE','Save')}}" (click)="saveChanges( form)" *ngIf="!isChild && componentConfig.updateable && !isSearch"></kendo-toolbar-button>
+     <kendo-toolbar-button  kendoButton [icon]="'print'" title="{{starServices.getNLS([],'PRINT','Print')}}" (click)="printScreen()" *ngIf="componentConfig.toolsShow"></kendo-toolbar-button >
+
+
+
+    <kendo-toolbar-button [disabled]="isSearch"  text="{{starServices.getNLS([],'ENTER_QUERY','Enter Query')}}" title="{{starServices.getNLS([],'ENTER_QUERY','Enter Query')}}" (click)="enterQuery( form);" *ngIf="componentConfig.queryable"></kendo-toolbar-button>
+    <kendo-toolbar-button [fillMode]="isSearch ? 'outline' : 'solid' " [icon]="'search'"  title="{{starServices.getNLS([],'EXECUTE_QUERY','Execute Query')}}"  (click)="executeQuery( form.value);" *ngIf="componentConfig.queryable"></kendo-toolbar-button>
+    <kendo-toolbar-button  [fillMode]="isSearch ? 'outline' : 'solid' "  [icon]="'cancel'"  title="{{starServices.getNLS([],'CANCEL','Cancel')}}"  (click)="onCancel($event)" *ngIf="componentConfig.queryable"></kendo-toolbar-button >
+
+
+    <kendo-toolbar-button  [icon]="'arrow-double-60-left'" title="{{starServices.getNLS([],'FIRST_RECORD','First Record')}}" (click)="goRecord( 'first');" *ngIf="componentConfig.navigable && !isSearch"></kendo-toolbar-button>
+    <kendo-toolbar-button  [icon]="'arrow-60-left'"  title="{{starServices.getNLS([],'PREVIOUS_RECORD','Previous Record')}}"  (click)="goRecord(  'prev');" *ngIf="componentConfig.navigable && !isSearch"></kendo-toolbar-button>
+    <kendo-toolbar-button  [icon]="'arrow-60-right'" title="{{starServices.getNLS([],'NEXT_RECORD','Next Record')}}"  (click)="goRecord('next')" *ngIf="componentConfig.navigable && !isSearch"></kendo-toolbar-button >
+    <kendo-toolbar-button  [icon]="'arrow-double-60-right'" title="{{starServices.getNLS([],'LAST_RECORD','Last Record')}}" (click)="goRecord('last')" *ngIf="componentConfig.navigable && !isSearch"></kendo-toolbar-button>
+
+<kendo-toolbar-button [icon]="'plus'" title="Insert Record" (click)="onNew($event);" *ngIf="!isSearch"></kendo-toolbar-button>
+<kendo-toolbar-button [icon]="'trash'" title="Delete Record" (click)="onRemove( form);" *ngIf="!isSearch">Remove</kendo-toolbar-button>
+<kendo-toolbar-button kendoButton  *ngIf="starServices.helpMsg !=='' " [fillMode]="isSearch ? 'outline' : 'solid' " text="{{starServices.helpMsg}}"    ></kendo-toolbar-button>		
+</kendo-toolbar>
+<kendo-pdf-export #pdf paperSize="A4" margin="2cm">
+    <form class="form-layout" class="k-form k-form-horizontal" [formGroup]="form" (click)="ON_CLICK(form.value)">
+    <fieldset class="form-fieldset"  class="k-form-fieldset" [disabled]="!componentConfig.enabled">
+
+
+<div [ngClass]="isPhonePortrait ? 'standard' : 'wrap' ">
+	<kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label *ngIf="!false" class="form-label" [for]="RULE_ID" [text]="starServices.getNLS([],'accountability_ACT_RULE_DEF_FORM.actruleDefAccountabilityActRuleDefForm.RULE_ID','Rule Id')"></kendo-label>
+		<input class="form-input" formControlName="RULE_ID" kendoTextBox #RULE_ID  [placeholder]="starServices.getNLS([],'accountability_ACT_RULE_DEF_FORM.actruleDefAccountabilityActRuleDefForm.RULE_ID_Hint','Please enter Rule Id')"
+ [attr.disabled]="true"  (change)="onChange_RULE_ID($event)"    />
+	</kendo-formfield>
+
+	<kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label *ngIf="!false" class="form-label" [for]="DISABLED" [text]="starServices.getNLS([],'accountability_ACT_RULE_DEF_FORM.actruleDefAccountabilityActRuleDefForm.DISABLED','Disabled')"></kendo-label>
+		<input class="form-input" formControlName="DISABLED"  #DISABLED kendoCheckBox type="checkbox"   [placeholder]="starServices.getNLS([],'accountability_ACT_RULE_DEF_FORM.actruleDefAccountabilityActRuleDefForm.DISABLED_Hint','Please enter Disabled')" (change)="onChange_DISABLED($event)"   
+	 name="DISABLED"  ToggleValue  [true]= "'1'" [false]= "'2'" 
+ />
+	</kendo-formfield>
+
+
+</div>
+<div [ngClass]="isPhonePortrait ? 'standard' : 'wrap' ">
+	<kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label *ngIf="!false" class="form-label" [for]="RULE_DESCRIPTION" [text]="starServices.getNLS([],'accountability_ACT_RULE_DEF_FORM.actruleDefAccountabilityActRuleDefForm.RULE_DESCRIPTION','Rule Description')"></kendo-label>
+		<input class="form-input" formControlName="RULE_DESCRIPTION" kendoTextBox #RULE_DESCRIPTION  [placeholder]="starServices.getNLS([],'accountability_ACT_RULE_DEF_FORM.actruleDefAccountabilityActRuleDefForm.RULE_DESCRIPTION_Hint','Please enter Rule Description')"
+ (change)="onChange_RULE_DESCRIPTION($event)"    />
+	</kendo-formfield>
+
+	<kendo-formfield class="form-field" [orientation]="'horizontal'"  *ngIf=false >
+		<kendo-label *ngIf="!false" class="form-label" [for]="LOGNAME" [text]="starServices.getNLS([],'accountability_ACT_RULE_DEF_FORM.actruleDefAccountabilityActRuleDefForm.LOGNAME','Logname')"></kendo-label>
+		<input class="form-input" formControlName="LOGNAME" kendoTextBox #LOGNAME  [placeholder]="starServices.getNLS([],'accountability_ACT_RULE_DEF_FORM.actruleDefAccountabilityActRuleDefForm.LOGNAME_Hint','Please enter Logname')"
+ (change)="onChange_LOGNAME($event)"    />
+	</kendo-formfield>
+
+
+</div>
+<div [ngClass]="isPhonePortrait ? 'standard' : 'wrap' ">
+	<kendo-formfield class="form-field" [orientation]="'horizontal'"  *ngIf=false >
+		<kendo-label *ngIf="!false" class="form-label" [for]="LOGDATE" [text]="starServices.getNLS([],'accountability_ACT_RULE_DEF_FORM.actruleDefAccountabilityActRuleDefForm.LOGDATE','Logdate')"></kendo-label>
+		<kendo-datetimepicker [format]="this.paramConfig.DateTimeFormat" class="form-field-date" formControlName="LOGDATE"  #LOGDATE 
+  [placeholder]="starServices.getNLS([],'accountability_ACT_RULE_DEF_FORM.actruleDefAccountabilityActRuleDefForm.LOGDATE_Hint','Please enter Logdate')" (valueChange)="onValueChange_LOGDATE($event)"   
+		 ></kendo-datetimepicker>
+	</kendo-formfield>
+</div>
+
+    </fieldset>
+    </form>
+    <app-dsp-upload (saveCompletedOutput)="this.starServices.att_img_saveFormCompletedHandler($event,this)"
+			[setComponentConfig_Input]="DSP_UPLOADConfig">
+		</app-dsp-upload>
+</kendo-pdf-export>
+</div>
+
+<div [hidden]="!showCodeDetails">
+	<kendo-dialog 
+	(close)="showCodeDetails=false;setlookupArrDef();" resizable="true" [minWidth]="800" [width]="700" [height]="500"
+	  title="Add Code">
+	  <app-som-tabs-codes-grid 
+	  [detail_Input]="grid_som_tabs_codes"  
+	  [setComponentConfig_Input]="SOM_TABS_CODESConfig">
+	</app-som-tabs-codes-grid>
+  
+	</kendo-dialog>
+  </div>
+  
+
+
+

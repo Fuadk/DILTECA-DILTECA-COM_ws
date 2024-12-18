@@ -1,0 +1,8 @@
+{
+  "/valify": {
+    "target": "https://www.valifystage.com",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
+

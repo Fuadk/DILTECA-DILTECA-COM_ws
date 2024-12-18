@@ -1,0 +1,116 @@
+<div>
+    <legend class="k-form-legend">{{ title }}</legend>
+
+<kendo-toolbar class="form-toolbar" *ngIf="showToolBar" >
+    <kendo-toolbar-button kendoButton [disabled]="isSearch"  [icon]="'save'" title="save" (click)="saveChanges( form)"></kendo-toolbar-button>
+    <kendo-toolbar-button  kendoButton [icon]="'print'" title="print" (click)="printScreen()" ></kendo-toolbar-button >
+
+<kendo-toolbar-separator></kendo-toolbar-separator><kendo-toolbar-separator></kendo-toolbar-separator><kendo-toolbar-separator></kendo-toolbar-separator>
+    <kendo-toolbar-button [disabled]="isSearch"  text="{{starServices.getNLS([],'ENTER_QUERY','Enter Query')}}" title="{{starServices.getNLS([],'ENTER_QUERY','Enter Query')}}" (click)="enterQuery( form);"></kendo-toolbar-button>
+    <kendo-toolbar-button [fillMode]="isSearch ? 'outline' : 'solid' " [icon]="'search'"  title="{{starServices.getNLS([],'EXECUTE_QUERY','Execute Query')}}"  (click)="executeQuery( form.value);"></kendo-toolbar-button>
+    <kendo-toolbar-button  [fillMode]="isSearch ? 'outline' : 'solid' " [icon]="'cancel'" title="Cancel"  (click)="onCancel($event)" ></kendo-toolbar-button >
+<kendo-toolbar-separator></kendo-toolbar-separator><kendo-toolbar-separator></kendo-toolbar-separator><kendo-toolbar-separator></kendo-toolbar-separator>
+    <kendo-toolbar-button  [icon]="'arrow-double-60-left'" title="First Record" (click)="goRecord( 'first');" *ngIf="!isSearch"></kendo-toolbar-button>
+    <kendo-toolbar-button  [icon]="'arrow-60-left'"  title="Previous Record"  (click)="goRecord(  'prev');" *ngIf="!isSearch"></kendo-toolbar-button>
+    <kendo-toolbar-button  [icon]="'arrow-60-right'" title="Next Record"  (click)="goRecord('next')" *ngIf="!isSearch"></kendo-toolbar-button >
+    <kendo-toolbar-button  [icon]="'arrow-double-60-right'" title="Last Record" (click)="goRecord('last')" *ngIf="!isSearch"></kendo-toolbar-button>
+<kendo-toolbar-separator></kendo-toolbar-separator><kendo-toolbar-separator></kendo-toolbar-separator><kendo-toolbar-separator></kendo-toolbar-separator>
+    <kendo-toolbar-button [icon]="'plus'" title="Insert Record" (click)="onNew($event);" *ngIf="!isSearch"></kendo-toolbar-button>
+    <kendo-toolbar-button [icon]="'trash'" title="Delete Record" (click)="onRemove( form);" *ngIf="!isSearch">Remove</kendo-toolbar-button>
+<kendo-toolbar-button kendoButton  *ngIf="starServices.helpMsg !=='' " [fillMode]="isSearch ? 'outline' : 'solid' " text="{{starServices.helpMsg}}"    ></kendo-toolbar-button>		
+</kendo-toolbar>
+
+<kendo-pdf-export #pdf paperSize="A4" margin="2cm">
+	<div class="form-borders">
+
+    <form class="form-layout" class="k-form k-form-horizontal" [formGroup]="form" >
+    <fieldset class="k-form-fieldset">
+
+
+<div class="wrap">
+	<kendo-formfield class="form-field" [orientation]="'horizontal'">
+<kendo-label class="form-label" [for]="USERNAME" text="User name" ></kendo-label>
+<input class="form-input" formControlName="USERNAME" kendoTextBox #USERNAME  
+required [readonly]="primarKeyReadOnlyArr.isUSERNAMEreadOnly" />
+</kendo-formfield>
+
+<kendo-formfield  class="form-field" [orientation]="'horizontal'">
+	<kendo-label class="form-label" [for]="GROUPNAME" text="Group"></kendo-label>
+	<kendo-combobox  #GROUPNAME  class="form-field-combobox" [formControlName]="'GROUPNAME'"
+		[data]="lkpArrGROUPNAME" [textField]="'FULLNAME'"  [valueField]="'GROUPNAME'"
+		[valuePrimitive]="true"  >
+	</kendo-combobox>
+</kendo-formfield>
+
+	<kendo-formfield class="form-field" [orientation]="'horizontal'">
+		<kendo-label class="form-label" [for]="PASSWORD" text="Password"></kendo-label>
+		<input class="form-input" type="password" autocomplete=new-password  formControlName="PASSWORD" kendoTextBox #PASSWORD />
+		</kendo-formfield>
+</div>
+
+<div class="wrap">
+	<kendo-formfield class="form-field" [orientation]="'horizontal'">
+		<kendo-label class="form-label" [for]="DEPT" text="Department"></kendo-label>
+		<kendo-combobox  #DEPT class="form-field-combobox" [formControlName]="'DEPT'"
+			[data]="lkpArrDEPT" [textField]="'CODETEXT_LANG'"  [valueField]="'CODE'"
+			[valuePrimitive]="true"  [kendoDropDownFilter]="{ operator: 'contains' }">
+		</kendo-combobox>
+	</kendo-formfield>
+	
+	<kendo-formfield class="form-field" [orientation]="'horizontal'">
+		<kendo-label class="form-label" [for]="DIV" text="Div"></kendo-label>
+		<kendo-combobox  #DIV class="form-field-combobox" [formControlName]="'DIV'"
+		[data]="lkpArrDIV" [textField]="'CODETEXT_LANG'"  [valueField]="'CODE'"
+		[valuePrimitive]="true"  [kendoDropDownFilter]="{ operator: 'contains' }">
+		</kendo-combobox>
+	</kendo-formfield>
+
+		<!--kendo-formfield class="form-field" [orientation]="'horizontal'">
+			<kendo-label class="form-label" [for]="TEAM" text="Team"></kendo-label>
+			<input class="form-input" formControlName="TEAM" kendoTextBox #TEAM />
+		</kendo-formfield-->
+
+		<kendo-formfield class="form-field" [orientation]="'horizontal'">
+			<kendo-label class="form-label" [for]="TEAM" text="Team"></kendo-label>
+			<kendo-combobox  #TEAM class="form-field-combobox" [formControlName]="'TEAM'"
+			[data]="lkpArrTEAM" [textField]="'CODETEXT_LANG'"  [valueField]="'CODE'"
+			[valuePrimitive]="true"  [kendoDropDownFilter]="{ operator: 'contains' }">
+			</kendo-combobox>
+		</kendo-formfield>	
+
+</div>
+<div class="wrap">	
+	<kendo-formfield  class="form-field" [orientation]="'horizontal'">
+		<kendo-label class="form-label" [for]="FULLNAME" text="Full name"></kendo-label>
+		<input class="form-input-double" formControlName="FULLNAME" kendoTextBox #FULLNAME />
+	</kendo-formfield>
+	<kendo-formfield class="form-field" [orientation]="'horizontal'">
+		<kendo-label class="form-label" [for]="LEADER" text="Leader"></kendo-label>
+		<input class="form-input" formControlName="LEADER"  #LEADER kendoCheckBox type="checkbox"/>
+	</kendo-formfield>
+	<kendo-formfield class="form-field" [orientation]="'horizontal'">
+		<kendo-label class="form-label" [for]="MANAGER" text="Manager"></kendo-label>
+		<input class="form-input" formControlName="MANAGER"  #MANAGER kendoCheckBox type="checkbox"/>
+	</kendo-formfield>
+</div>
+
+<div class="wrap">
+	<kendo-formfield class="form-field-double" [orientation]="'horizontal'">
+		<kendo-label class="form-label" [for]="NOTES" text="Notes"></kendo-label>
+		<textarea kendoTextArea  style="resize: both;" class="form-input-double" formControlName="NOTES" kendoTextBox #NOTES ></textarea>
+	</kendo-formfield>
+</div>
+
+    </fieldset>
+	</form>
+	</div>
+	
+
+
+
+
+
+</kendo-pdf-export>
+</div>
+
+

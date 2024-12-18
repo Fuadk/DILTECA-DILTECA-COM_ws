@@ -1,0 +1,173 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    
+    "starlib": {
+      "projectType": "library",
+      "root": "projects/starlib",
+      "sourceRoot": "projects/starlib/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/starlib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/starlib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/starlib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/starlib/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "DILTECA-DILTECA-COM": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "standalone": false
+        },
+        "@schematics/angular:directive": {
+          "standalone": false
+        },
+        "@schematics/angular:pipe": {
+          "standalone": false
+        }
+      },
+      "root": "projects/DILTECA-DILTECA-COM",
+      "sourceRoot": "projects/DILTECA-DILTECA-COM/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/DILTECA-DILTECA-COM",
+            "index": "projects/DILTECA-DILTECA-COM/src/index.html",
+            "browser": "projects/DILTECA-DILTECA-COM/src/main.ts",
+            "polyfills": [
+              "zone.js",
+              "projects/DILTECA-DILTECA-COM/src/polyfills.js",
+              "@angular/localize/init"
+            ],
+            "tsConfig": "projects/DILTECA-DILTECA-COM/tsconfig.app.json",
+            "assets": [
+              "projects/DILTECA-DILTECA-COM/src/favicon.ico",
+              "projects/DILTECA-DILTECA-COM/src/assets",
+              {
+                "glob": "**/*",
+                "input": "projects/DILTECA-DILTECA-COM/public"
+              }
+            ],
+            "styles": [
+              "styles.scss",
+              "node_modules/bpmn-js/dist/assets/diagram-js.css",
+              "node_modules/bpmn-js/dist/assets/bpmn-font/css/bpmn.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/DILTECA-DILTECA-COM/src/environments/environment.ts",
+                  "with": "projects/DILTECA-DILTECA-COM/src/environments/environment.prod.ts"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "20mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kB",
+                  "maximumError": "10kB"
+                }
+              ]
+            },
+            "stage": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/DILTECA-DILTECA-COM/src/environments/environment.ts",
+                  "with": "projects/DILTECA-DILTECA-COM/src/environments/environment.stage.ts"
+                }
+              ]
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "DILTECA-DILTECA-COM:build:production"
+            },
+            "development": {
+              "buildTarget": "DILTECA-DILTECA-COM:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "projects/DILTECA-DILTECA-COM/src/polyfills.js",
+              "@angular/localize/init"
+            ],
+            "tsConfig": "projects/DILTECA-DILTECA-COM/tsconfig.spec.json",
+            "assets": [
+              "projects/DILTECA-DILTECA-COM/src/favicon.ico",
+              "projects/DILTECA-DILTECA-COM/src/assets",
+              {
+                "glob": "**/*",
+                "input": "projects/DILTECA-DILTECA-COM/public"
+              }
+            ],
+            "styles": [
+              {
+                "input": "node_modules/@progress/kendo-font-icons/dist/index.css"
+              },
+              "styles.scss",
+              "node_modules/bpmn-js/dist/assets/diagram-js.css",
+              "node_modules/bpmn-js/dist/assets/bpmn-font/css/bpmn.css"
+
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+   
+    
+  },
+  "cli": {
+    "analytics": "7c61b82a-d19f-4431-8d36-198c6b193fda"
+  }
+}

@@ -1,0 +1,330 @@
+<div >
+    <kendo-menu    *ngIf="!MenuWithLogin" style="display: inline-block; float:right;" [items]="langitems" (select)="onSelectLang($event)"></kendo-menu>
+    <div *ngIf="MenuWithLogin" class="custom-toolbar" [style.display]="showMenuButton ? 'block' : 'none'">
+        <button  kendoButton icon="menu"  look="flat" (click)="togglePanel()"></button>
+        <span class="mail-box">{{starServices.getNLS([],'MENU','Menu')}}</span>
+        
+        <button  kendoButton icon="mirror"  look="flat" (click)="logoff()"  style="float: right;">{{starServices.getNLS([],'LOGOFF','Logoff')}}</button>
+        <kendo-menu   style="display: inline-block; float:right;" [items]="langitems" (select)="onSelectLang($event)"></kendo-menu>
+    </div>
+
+    <div class="layout" >
+        <div   *ngIf="MenuWithLogin" [ngClass]="isPhonePortrait ? '' : 'navigation' "   [style.display]="showPanelbar ? 'block' : 'none'"  >
+            <!-- <div   *ngIf="MenuWithLogin"  class="navigation-pane" [style.display]="showPanelbar ? 'block' : 'none'" [ngClass]="isPhonePortrait ? '' : 'overlap' " ></div> -->
+            <div>&nbsp;</div>
+            <kendo-menu style ="display: inline;" [items]="items" (select)="onSelect($event)" *ngIf="showModuleSelection">
+            </kendo-menu>
+            <!--legend class="k-form-legend">{{moduleName}}</legend-->
+            <h3>{{moduleName}}</h3>
+    
+            <kendo-panelbar [expandMode]="expandMode"  *ngIf="staticMenu" (stateChange)="starServices.stateChange(this, $event)" >
+                
+
+                <kendo-panelbar-item [title]="'Statistics'">
+                    <!--kendo-panelbar-item [title]="'Blank'" routerLink=""></kendo-panelbar-item > 
+                    <kendo-panelbar-item [title]="'home'" routerLink="/home"></kendo-panelbar-item --> 
+                    <kendo-panelbar-item [title]="'Dashboard '" routerLink="/PRVDASH"></kendo-panelbar-item>
+                    <!--kendo-panelbar-item [title]="'DashBoard'" routerLink="/home"></kendo-panelbar-item --> 
+                    <kendo-panelbar-item [title]="'Reports '" routerLink="/PRVRPRT"></kendo-panelbar-item>
+
+                </kendo-panelbar-item>
+
+                <kendo-panelbar-item [title]="'Components'">                
+				
+
+
+				
+				
+				<kendo-panelbar-item [title]="'App2 Mychart1 '" routerLink="/app2_mychart1"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'App2 Report 4 '" routerLink="/app2_report_4"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'App2 Chart 10 '" routerLink="/app2_chart_10"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'App2 Screen7 '" routerLink="/app2_screen7"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'App2 Screen3 '" routerLink="/app2_screen3"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'App2 Screen6 '" routerLink="/app2_screen6"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'App2 Screen1 '" routerLink="/app2_screen1"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'App2 111 '" routerLink="/app2_111"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'App2 Chart 11 '" routerLink="/app2_chart_11"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'App2 Dyn1 '" routerLink="/app2_dyn1"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'App2 Xxx '" routerLink="/app2_xxx"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'App2 Screen4 '" routerLink="/app2_screen4"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'App2 Screen8 '" routerLink="/app2_screen8"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'App2 222 '" routerLink="/app2_222"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'App2 Xx '" routerLink="/app2_xx"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'App2 Screen9 '" routerLink="/app2_screen9"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Log Trans GRID'" routerLink="/log_trans_grid"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Adm Log Trans '" routerLink="/adm_log_trans"></kendo-panelbar-item>
+
+
+
+
+
+
+
+
+
+
+				<kendo-panelbar-item [title]="'App2 Screen5 '" routerLink="/app2_screen5"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tasks Order '" routerLink="/TASKS_order"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tasks Order1 '" routerLink="/tasks_order1"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tasks Order2 '" routerLink="/tasks_order2"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tasks Chart1 '" routerLink="/tasks_chart1"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tasks Screen1 '" routerLink="/TASKS_screen1"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tasks Screen2 '" routerLink="/tasks_screen2"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tasks Screen3 '" routerLink="/tasks_screen3"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tasks Screen4 '" routerLink="/TASKS_screen4"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tasks Test8 '" routerLink="/tasks_test8"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Accountability File Fields '" routerLink="/accountability_file_fields"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Accountability Files '" routerLink="/accountability_files"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Accountability Invoices '" routerLink="/accountability_invoices"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Accountability Payments '" routerLink="/accountability_payments"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Accountability Rules '" routerLink="/accountability_rules"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Accountability Files Fields '" routerLink="/accountability_files_fields"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Accountability Files Match '" routerLink="/accountability_files_match"></kendo-panelbar-item>
+<!-- //point4 -->
+                             </kendo-panelbar-item>
+                
+                <kendo-panelbar-item [title]="'Sub Components'">
+
+				
+				<kendo-panelbar-item [title]="'---------app2_tickeit_FORM components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tickeit App2 Tickeit Form FORM'" routerLink="/tickeit_app2_tickeit_form_form"></kendo-panelbar-item>
+
+
+				<kendo-panelbar-item [title]="'Tickeit App2 Tickeit Grid GRID'" routerLink="/tickeit_app2_tickeit_grid_grid"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'---------app2_Form_1 components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tickeit App2 Form 1 FORM'" routerLink="/tickeit_app2_form_1_form"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tickeit App2 Form 1 FORM'" routerLink="/app2_form_1"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tickeit App2 Tickeit Form FORM'" routerLink="/app2_tickeit_form"></kendo-panelbar-item>
+
+				<kendo-panelbar-item [title]="'---------tickeit_tickeit_FORM components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tickeit Tickeit Tickeit Form FORM'" routerLink="/tickeit_tickeit_form"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'---------app2_EMP_FORM components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Emp App2 Emp Form FORM'" routerLink="/app2_emp_form"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'---------FIRSTAPP_EMP_FORM components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Emp Firstapp Emp Form FORM'" routerLink="/firstapp_emp_form"></kendo-panelbar-item>
+
+
+
+
+				<kendo-panelbar-item [title]="'---------FIRSTAPP_tickeit_FORM components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tickeit Firstapp Tickeit Form FORM'" routerLink="/firstapp_tickeit_form"></kendo-panelbar-item>
+
+
+
+
+				<kendo-panelbar-item [title]="'---------App_tickeit7_FORM components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tickeit7 App Tickeit7 Form FORM'" routerLink="/app_tickeit7_form"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'---------App_tickeit7_FORM1 components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tickeit7 App Tickeit7 Form1 FORM'" routerLink="/app_tickeit7_form1"></kendo-panelbar-item>
+
+
+				<kendo-panelbar-item [title]="'---------App_tickeit10_FORM components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tickeit10 App Tickeit10 Form FORM'" routerLink="/app_tickeit10_form"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'---------App_tickeit10_GRID components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tickeit10 App Tickeit10 Grid GRID'" routerLink="/app_tickeit10_grid"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'---------App_tickeit10_FORM_2 components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tickeit10 App Tickeit10 Form 2 FORM'" routerLink="/app_tickeit10_form_2"></kendo-panelbar-item>
+
+
+				<kendo-panelbar-item [title]="'---------App_tickeit10_FORM3 components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tickeit10 App Tickeit10 Form3 FORM'" routerLink="/app_tickeit10_form3"></kendo-panelbar-item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<kendo-panelbar-item [title]="'---------app2_tickeit_FORM_x components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tickeit App2 Tickeit Form X FORM'" routerLink="/app2_tickeit_form_x"></kendo-panelbar-item>
+
+
+				<kendo-panelbar-item [title]="'---------tickeit_Table6_GRID1 components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Table6 Tickeit Table6 Grid1 GRID'" routerLink="/tickeit_table6_grid1"></kendo-panelbar-item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<kendo-panelbar-item [title]="'--------- tab pages -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'---------app2_tickeit_GRID components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tickeit App2 Tickeit Grid GRID'" routerLink="/app2_tickeit_grid"></kendo-panelbar-item>
+
+
+
+
+
+
+
+
+
+
+				<kendo-panelbar-item [title]="'---------app2_tickeit_GRID1 components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tickeit App2 Tickeit Grid1 GRID'" routerLink="/app2_tickeit_grid1"></kendo-panelbar-item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<kendo-panelbar-item [title]="'---------TASKS_TST_ORDERS_FORM components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tst Orders Tasks Tst Orders Form FORM'" routerLink="/tasks_tst_orders_form"></kendo-panelbar-item>
+
+
+
+
+
+
+
+
+
+
+
+
+				<kendo-panelbar-item [title]="'---------TASKS_TST_ORDERS_GRID components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tst Orders Tasks Tst Orders Grid GRID'" routerLink="/tasks_tst_orders_grid"></kendo-panelbar-item>
+
+
+
+
+
+
+
+
+
+
+				<kendo-panelbar-item [title]="'---------TASKS_xx_GRID components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Xx Tasks Xx Grid GRID'" routerLink="/tasks_xx_grid"></kendo-panelbar-item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<kendo-panelbar-item [title]="'---------tst_tickeit_FORM components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tickeit Tst Tickeit Form FORM'" routerLink="/tst_tickeit_form"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'---------tst_tickeit_GRID components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Tickeit Tst Tickeit Grid GRID'" routerLink="/tst_tickeit_grid"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'---------accountability_ACT_FILE_DEF_FORM components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Act File Def Accountability Act File Def Form FORM'" routerLink="/accountability_act_file_def_form"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'---------accountability_ACT_INVOICES_GRID components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Act Invoices Accountability Act Invoices Grid GRID'" routerLink="/accountability_act_invoices_grid"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'---------accountability_ACT_PAYMENT_GRID components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Act Payment Accountability Act Payment Grid GRID'" routerLink="/accountability_act_payment_grid"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'---------accountability_ACT_FIELDS_GRID components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Act Fields Accountability Act Fields Grid GRID'" routerLink="/accountability_act_fields_grid"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'---------accountability_ACT_FILE_DEF_GRID components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Act File Def Accountability Act File Def Grid GRID'" routerLink="/accountability_act_file_def_grid"></kendo-panelbar-item>
+
+
+
+
+				<kendo-panelbar-item [title]="'---------accountability_ACT_INVOICES_FORM components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Act Invoices Accountability Act Invoices Form FORM'" routerLink="/accountability_act_invoices_form"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'---------accountability_ACT_PAYMENT_FORM components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Act Payment Accountability Act Payment Form FORM'" routerLink="/accountability_act_payment_form"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'---------accountability_ACT_RULE_DEF_FORM components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Act Rule Def Accountability Act Rule Def Form FORM'" routerLink="/accountability_act_rule_def_form"></kendo-panelbar-item>
+
+
+				<kendo-panelbar-item [title]="'---------accountability_ACT_RULE_ACTION_GRID components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Act Rule Action Accountability Act Rule Action Grid GRID'" routerLink="/accountability_act_rule_action_grid"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'---------accountability_ACT_RULE_ITEM_GRID components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Act Rule Item Accountability Act Rule Item Grid GRID'" routerLink="/accountability_act_rule_item_grid"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'---------accountability_ACT_RULE_ITEM_FORM components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Act Rule Item Accountability Act Rule Item Form FORM'" routerLink="/accountability_act_rule_item_form"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'---------accountability_ACT_RULE_ACTION_FORM components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Act Rule Action Accountability Act Rule Action Form FORM'" routerLink="/accountability_act_rule_action_form"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'---------accountability_ACT_INVOICES_GRID2 components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Act Invoices Accountability Act Invoices Grid2 GRID'" routerLink="/accountability_act_invoices_grid2"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'---------accountability_ACT_PAYMENT_GRID2 components -------'"></kendo-panelbar-item>
+				<kendo-panelbar-item [title]="'Act Payment Accountability Act Payment Grid2 GRID'" routerLink="/accountability_act_payment_grid2"></kendo-panelbar-item>
+<!-- //point3 -->
+                        </kendo-panelbar-item>
+            </kendo-panelbar>
+
+            <kendo-panelbar [expandMode]="expandMode" *ngIf="!staticMenu" (stateChange)="starServices.stateChange(this, $event)" >
+                <kendo-panelbar-item
+                    *ngFor="let item of panelItems"
+                    [id]="item.choice"
+                    [title]="item.title"
+                    [routerLink]="item.routerLink" 
+                    [selected]="item.choice == selectedId">
+                    
+                    <kendo-panelbar-item 
+                        *ngFor="let child of item.children"
+                        [id]="child.choice"
+                        [title]="child.title"
+                        
+                         >
+                    </kendo-panelbar-item>                         
+                   
+                </kendo-panelbar-item>
+            </kendo-panelbar>
+        </div>
+        <div class="content-pane" (click)="divClicked()">
+            <router-outlet  ></router-outlet>
+        </div>
+    </div>
+</div>
+<app-adm-login *ngIf="showLogn" (loginCompleted)="loginCompletedHandler($event)"></app-adm-login>
+<div kendoDialogContainer></div>

@@ -1,0 +1,48 @@
+[1m[33m[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mUsing direct eval with a bundler is not recommended and may cause problems[0m [direct-eval]
+
+    projects/prj1/src/app/components/dsp/dsp-dynamic-rw-form/dsp-dynamic-rw-form.component.ts:979:32:
+[37m      979 │                     let value = [32meval[37m(defaultValue);
+          ╵                                 [32m~~~~[0m
+
+  You can read more about direct eval and bundling here: [4mhttps://esbuild.github.io/link/direct-eval[0m
+
+[39m[22m
+[1m[31m[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mNG9: Type 'AbstractControl<any, any>' is missing the following properties from type 'FormControl<any>': defaultValue, registerOnChange, registerOnDisabledChange[0m [1m[35m[plugin angular-compiler][0m
+
+    projects/prj1/src/app/components/adm/adm-authority-grid/adm-authority-grid.component.html:55:57:
+[37m      55 │ ... [valuePrimitive]="true" [[32mformControl[37m]="formGroup.get('ROUTINE_...
+         ╵                              [32m~~~~~~~~~~~[0m
+
+  Error occurs in the template of component AdmAuthorityGridComponent.
+
+    projects/prj1/src/app/components/adm/adm-authority-grid/adm-authority-grid.component.ts:35:15:
+[37m      35 │   templateUrl: [32m'./adm-authority-grid.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mNG2: Type 'AbstractControl<any, any>' is not assignable to type 'FormControl<any>'.[0m [1m[35m[plugin angular-compiler][0m
+
+    projects/prj1/src/app/components/adm/adm-authority-grid/adm-authority-grid.component.html:64:57:
+[37m      64 │ ... [valuePrimitive]="true" [[32mformControl[37m]="formGroup.get('AUTHLEVE...
+         ╵                              [32m~~~~~~~~~~~[0m
+
+  Error occurs in the template of component AdmAuthorityGridComponent.
+
+    projects/prj1/src/app/components/adm/adm-authority-grid/adm-authority-grid.component.ts:35:15:
+[37m      35 │   templateUrl: [32m'./adm-authority-grid.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mNG2: Type 'AbstractControl<any, any>' is not assignable to type 'FormControl<any>'.[0m [1m[35m[plugin angular-compiler][0m
+
+    projects/prj1/src/app/components/adm/adm-authority-grid/adm-authority-grid.component.html:74:57:
+[37m      74 │ ... [valuePrimitive]="true" [[32mformControl[37m]="formGroup.get('DISP_FLA...
+         ╵                              [32m~~~~~~~~~~~[0m
+
+  Error occurs in the template of component AdmAuthorityGridComponent.
+
+    projects/prj1/src/app/components/adm/adm-authority-grid/adm-authority-grid.component.ts:35:15:
+[37m      35 │   templateUrl: [32m'./adm-authority-grid.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m

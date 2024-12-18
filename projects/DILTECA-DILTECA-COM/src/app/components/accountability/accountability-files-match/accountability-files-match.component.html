@@ -1,0 +1,543 @@
+<div [ngClass]="isPhonePortrait ? 'standard' : 'wrap' ">
+	<div>   
+        <legend class="k-form-legend">{{ this.starServices.getNLS([],"accountability_files_match.accountability_files_match.component_title1","Payments") }}</legend>
+        <kendo-toolbar class="form-toolbar" *ngIf="showToolBar">
+            <kendo-toolbar-button  kendoButton [icon]="'print'" title="print" (click)="printScreen()" *ngIf="componentConfig.toolsShow"></kendo-toolbar-button >
+        <kendo-toolbar-separator></kendo-toolbar-separator>
+            <kendo-toolbar-button  [icon]="'search'"  title="Execute Query"  (click)="executeQuery( form.value);"></kendo-toolbar-button>
+            <kendo-toolbar-button   [icon]="'cancel'" title="Cancel"  (click)="onCancel($event)" ></kendo-toolbar-button >
+			<kendo-toolbar-button *ngIf="enableAutoMatch" themeColor="warning" text="{{starServices.getNLS([],'ENTER_QUERY','Auto Match')}}" title="{{starServices.getNLS([],'ENTER_QUERY','Enter Query')}}" (click)="autoMatch( );" ></kendo-toolbar-button>
+
+			<kendo-toolbar-button kendoButton  *ngIf="starServices.helpMsg !=='' " [fillMode]="isSearch ? 'outline' : 'solid' " text="{{starServices.helpMsg}}"    ></kendo-toolbar-button>		        </kendo-toolbar>
+        <kendo-pdf-export #pdf paperSize="A4" margin="2cm">
+			<div class="form-borders">
+            <form class="form-layout" class="k-form k-form-horizontal" [formGroup]="form" >
+            <fieldset class="k-form-fieldset" class="form-fieldset" >
+        <div [ngClass]="isPhonePortrait ? 'standard' : 'wrap' ">
+
+	<kendo-formfield *ngIf="false" class="form-field" [orientation]="'horizontal'" >
+		<kendo-label  class="form-label" [for]="FILE_TYPE" [text]="starServices.getNLS([],'accountability_files_match.actpaymentActPaymentGrid.FILE_TYPE','File Type')"></kendo-label>
+		<input class="form-input" formControlName="FILE_TYPE" kendoTextBox #FILE_TYPE 
+ />
+	</kendo-formfield>
+
+	<kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label *ngIf="!false" class="form-label" [for]="FILE_NAME" [text]="starServices.getNLS([],'accountability_ACT_FILE_DEF_FORM.actfileDefAccountabilityActFileDefForm.FILE_NAME','File Type')"></kendo-label>
+		<kendo-combobox  #FILE_NAME class="form-field-combobox" [formControlName]="'FILE_NAME'"
+		[data]="lkpArrFILE_NAME" [textField]="'CODETEXT_LANG'"  [valueField]="'CODE'"
+		 [placeholder]="starServices.getNLS([],'accountability_ACT_FILE_DEF_FORM.actfileDefAccountabilityActFileDefForm.FILE_NAME_Hint','Please enter File Type')" 
+		 (filterChange)="starServices.handleFilterCode(this, $event)" 
+		[valuePrimitive]="true"  [kendoDropDownFilter]="{ operator: 'contains' }">
+		</kendo-combobox>
+	</kendo-formfield>
+
+
+
+	<kendo-formfield *ngIf="false" class="form-field" [orientation]="'horizontal'" >
+		<kendo-label  class="form-label" [for]="PAYMENT_NUMBER" [text]="starServices.getNLS([],'accountability_files_match.actpaymentActPaymentGrid.PAYMENT_NUMBER','Payment Number')"></kendo-label>
+		<input class="form-input" formControlName="PAYMENT_NUMBER" kendoTextBox #PAYMENT_NUMBER 
+ />
+	</kendo-formfield>
+</div>
+<div *ngIf="false" [ngClass]="isPhonePortrait ? 'standard' : 'wrap' ">
+	
+	<kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label  class="form-label" [for]="PAYMENT_DATE" [text]="starServices.getNLS([],'accountability_files_match.actpaymentActPaymentGrid.PAYMENT_DATE','From Date')"></kendo-label>
+		<kendo-datepicker [format]="this.paramConfig.DateFormat" class="form-field-date" formControlName="PAYMENT_DATE"  #PAYMENT_DATE 
+  		[placeholder]="starServices.getNLS([],'accountability_FILES_MATCH.accountabilityFilesMatchFromDate.PAYMENT_DATE_FROM_Hint','From Date')" 
+		></kendo-datepicker>
+	</kendo-formfield>
+
+	<kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label  class="form-label" [for]="PAYMENT_DATE" [text]="starServices.getNLS([],'accountability_files_match.actpaymentActPaymentGrid.PAYMENT_DATE','To Date')"></kendo-label>
+		<kendo-datepicker [format]="this.paramConfig.DateFormat" class="form-field-date" formControlName="PAYMENT_DATE"  #PAYMENT_DATE 
+  		[placeholder]="starServices.getNLS([],'accountability_FILES_MATCH.accountabilityFilesMatchFromDate.PAYMENT_DATE_TO_Hint','To Date')" 
+		></kendo-datepicker>
+	</kendo-formfield>
+
+
+	<kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label  class="form-label" [for]="PAYMENT_DESCRIPTION" [text]="starServices.getNLS([],'accountability_files_match.actpaymentActPaymentGrid.PAYMENT_DESCRIPTION','Description')"></kendo-label>
+		<input class="form-input" formControlName="PAYMENT_DESCRIPTION" kendoTextBox #PAYMENT_DESCRIPTION 
+		[placeholder]="starServices.getNLS([],'accountability_FILES_MATCH.accountabilityFilesMatchFromDate.PAYMENT_DESCRIPTION_Hint','Description')" 
+ />
+	</kendo-formfield>
+	<button *ngIf="false" class="k-button k-primary" kendoButton (click)="executeQuery( form.value);" >Retrieve</button>
+	<kendo-formfield *ngIf="false" class="form-field" [orientation]="'horizontal'" >
+		<kendo-label  class="form-label" [for]="PAYMENT_AMOUNT" [text]="starServices.getNLS([],'accountability_files_match.actpaymentActPaymentGrid.PAYMENT_AMOUNT','')"></kendo-label>
+		<input class="form-input" formControlName="PAYMENT_AMOUNT" kendoTextBox #PAYMENT_AMOUNT 
+ />
+	</kendo-formfield>
+
+	<kendo-formfield *ngIf="false" class="form-field" [orientation]="'horizontal'" >
+		<kendo-label  class="form-label" [for]="STATUS" [text]="starServices.getNLS([],'accountability_files_match.actpaymentActPaymentGrid.STATUS','')"></kendo-label>
+		<input class="form-input" formControlName="STATUS" kendoTextBox #STATUS 
+ />
+	</kendo-formfield>
+
+
+</div>
+
+            </fieldset>
+            </form>
+		</div>
+       
+
+    </kendo-pdf-export>
+	<h6>Drag a row from Payments grid and dropn on a row in Invoices grid</h6>
+
+		<kendo-grid [rowClass]="ROW_CLASS"
+		
+		id="paymentGrid" [sortable]="true" [height]="500"
+		#paymentGrid
+		[data]="paymentGridData"
+		(drop)="onDrop($event, paymentGrid, invoiceGrid)"
+		(dragover)="onDragOver($event, paymentGrid)"
+		(dragstart)="onDragStart($event, paymentGrid)"
+		[resizable] ="true"
+		[filter]="state.filter"
+		[filterable]= "isFilterable"
+		[columnMenu]="isColumnMenu"
+		(dataStateChange)="dataStateChange($event)"
+		[resizable]="true"
+		[sortable]="true">
+	
+		
+		
+		  
+			<ng-template kendoGridToolbarTemplate *ngIf="showToolBar">
+			<!-- <legend class="k-form-legend" *ngIf="componentConfig.showTitle">{{ title }}</legend> -->
+			<h6 class="k-form-legend" *ngIf="componentConfig.showTitle">{{ title }}</h6>
+	
+	
+			
+			
+			<button  kendoButton [icon]="'print'" title="print" (click)="printScreen()" *ngIf="componentConfig.toolsShow"></button >
+	
+			
+				<button  [disabled]="isSearch" kendoButton  title="Enter Query" (click)="enterQuery(paymentGrid);" *ngIf="componentConfig.queryable">{{starServices.getNLS([],'ENTER_QUERY','Enter Query')}}</button >
+				<button  [fillMode]="isSearch ? 'outline' : 'solid' " kendoButton [icon]="'zoom'" title="Execute Query"  (click)="executeQuery(paymentGrid);" *ngIf="componentConfig.queryable"></button >
+				<button  [fillMode]="isSearch ? 'outline' : 'solid' " kendoButton [icon]="'cancel'" title="Cancel"  (click)="cancelHandler()" ></button >
+			
+	
+				<button  [icon]="'plus'" title="Insert Record"  kendoGridAddCommand *ngIf="componentConfig.insertable && !isSearch"></button >
+				
+			
+			<button  kendoButton [icon]="'menu'" title="Show/Hide Menu"  (click)="toggleColumnMenu()" ></button >
+				<div *ngIf="isColumnMenu">
+					<button  kendoButton [icon]="'filter'" title="Show/Hide Filter options"  (click)="toggleFilter()" ></button >
+				<button  [icon]="'file-pdf'" title="Export to PDF"  kendoGridPDFCommand ></button >
+				<button  [icon]="'file-excel'" title="Export to Excel"  kendoGridExcelCommand ></button > 
+				</div>
+				
+				<button  kendoButton *ngIf="starServices.helpMsg_grid !=='' " [fillMode]="isSearch ? 'outline' : 'solid' "  >{{starServices.helpMsg_grid}}</button>		
+				
+	
+		
+		</ng-template>
+	
+		<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}" field="PAYMENT_NUMBER" 
+			 title="{{starServices.getNLS([],'accountability_ACT_PAYMENT_GRID2.actpaymentAccountabilityActPaymentGrid2.PAYMENT_NUMBER','Number')}}"  [width]="80">
+			 <ng-template kendoGridCellTemplate let-dataItem> {{dataItem.PAYMENT_NUMBER}}</ng-template>
+			<ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+			<input     [formControl]="formGroup.get('PAYMENT_NUMBER')" [placeholder]="starServices.getNLS([],'accountability_ACT_PAYMENT_GRID2.actpaymentAccountabilityActPaymentGrid2.PAYMENT_NUMBER_Hint','Please enter Payment Number')" />
+			</ng-template>
+			</kendo-grid-column>
+	
+		<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}" field="FILE_TYPE" title="{{starServices.getNLS([],'accountability_ACT_PAYMENT_GRID2.actpaymentAccountabilityActPaymentGrid2.FILE_TYPE','File Type')}}" [width]="120"   *ngIf=false   
+	 >
+			<ng-template kendoGridCellTemplate let-dataItem> {{lkpArrGetFILE_TYPE(dataItem.FILE_TYPE)?.CODETEXT_LANG}} </ng-template>
+			<ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+			<kendo-dropdownlist  [data]="lkpArrFILE_TYPE"  textField="CODETEXT_LANG" valueField="CODE"
+			 
+			[valuePrimitive]="true" [formControl]="formGroup.get('FILE_TYPE')">
+			</kendo-dropdownlist>
+			</ng-template>
+		</kendo-grid-column>
+
+	
+		<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}"  field="FILE_NAME"
+		
+	
+		 title="{{starServices.getNLS([],'accountability_ACT_PAYMENT_GRID2.actpaymentAccountabilityActPaymentGrid2.FILE_NAME','File Name')}}"  [width]="120">
+			 <ng-template kendoGridCellTemplate let-dataItem> {{dataItem.FILE_NAME}}</ng-template>
+			<ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+			<input     [formControl]="formGroup.get('FILE_NAME')" [placeholder]="starServices.getNLS([],'accountability_ACT_PAYMENT_GRID2.actpaymentAccountabilityActPaymentGrid2.FILE_NAME_Hint','Please enter File Name')" />
+			</ng-template>
+			</kendo-grid-column>
+	
+			<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}" field="PAYMENT_NUMBER" *ngIf="false"
+			title="{{starServices.getNLS([],'accountability_ACT_PAYMENT_GRID2.actpaymentAccountabilityActPaymentGrid2.PAYMENT_NUMBER','Number')}}"  [width]="80">
+			<ng-template kendoGridCellTemplate let-dataItem> {{dataItem.PAYMENT_NUMBER}}</ng-template>
+		   <ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+		   <input     [formControl]="formGroup.get('PAYMENT_NUMBER')" [placeholder]="starServices.getNLS([],'accountability_ACT_PAYMENT_GRID2.actpaymentAccountabilityActPaymentGrid2.PAYMENT_NUMBER_Hint','Please enter Payment Number')" />
+		   </ng-template>
+		   </kendo-grid-column>
+		   
+		<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}" field="PAYMENT_DATE"  [width]="80"	filter="date"	 editor="date"  title="{{starServices.getNLS([],'accountability_ACT_PAYMENT_GRID2.actpaymentAccountabilityActPaymentGrid2.PAYMENT_DATE','Payment Date')}}" 
+	 
+	
+			[format]="paramConfig.DateFormat">
+			<ng-template KendoGridEditTemplate  let-dataItem>
+			<kendo-datepicker [format]="this.paramConfig.DateFormat" ngDefaultControl	 #PAYMENT_DATE
+			  >
+			</kendo-datepicker>
+			</ng-template>
+			</kendo-grid-column>
+	
+		<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}" field="PAYMENT_DESCRIPTION"
+		
+	
+	 		 title="{{starServices.getNLS([],'accountability_ACT_PAYMENT_GRID2.actpaymentAccountabilityActPaymentGrid2.PAYMENT_DESCRIPTION','Payment Description')}}"  [width]="120">
+			 <ng-template kendoGridCellTemplate let-dataItem> {{dataItem.PAYMENT_DESCRIPTION}}</ng-template>
+			<ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+			<input     [formControl]="formGroup.get('PAYMENT_DESCRIPTION')" [placeholder]="starServices.getNLS([],'accountability_ACT_PAYMENT_GRID2.actpaymentAccountabilityActPaymentGrid2.PAYMENT_DESCRIPTION_Hint','Please enter Payment Description')" />
+			</ng-template>
+			</kendo-grid-column>
+	
+		<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}"  field="PAYMENT_AMOUNT"
+		
+	
+			 title="{{starServices.getNLS([],'accountability_ACT_PAYMENT_GRID2.actpaymentAccountabilityActPaymentGrid2.PAYMENT_AMOUNT','Payment Amount')}}"  [width]="80">
+			 <ng-template kendoGridCellTemplate let-dataItem> {{dataItem.PAYMENT_AMOUNT}}</ng-template>
+			<ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+			<input     [formControl]="formGroup.get('PAYMENT_AMOUNT')" [placeholder]="starServices.getNLS([],'accountability_ACT_PAYMENT_GRID2.actpaymentAccountabilityActPaymentGrid2.PAYMENT_AMOUNT_Hint','Please enter Payment Amount')" />
+			</ng-template>
+			</kendo-grid-column>
+	
+		
+		
+		<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}"  field="STATUS"  
+	 	 title="{{starServices.getNLS([],'accountability_ACT_PAYMENT_GRID2.actpaymentAccountabilityActPaymentGrid2.STATUS','Status')}}"  [width]="120">
+			 <ng-template kendoGridCellTemplate let-dataItem> {{dataItem.STATUS}}</ng-template>
+			<ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+			<input     [formControl]="formGroup.get('STATUS')" [placeholder]="starServices.getNLS([],'accountability_ACT_PAYMENT_GRID2.actpaymentAccountabilityActPaymentGrid2.STATUS_Hint','Please enter Logname')" />
+			</ng-template>
+			</kendo-grid-column>
+
+	
+		<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}"  field="LOGNAME" *ngIf=false  
+	 	 title="{{starServices.getNLS([],'accountability_ACT_PAYMENT_GRID2.actpaymentAccountabilityActPaymentGrid2.LOGNAME','Logname')}}"  [width]="120">
+			 <ng-template kendoGridCellTemplate let-dataItem> {{dataItem.LOGNAME}}</ng-template>
+			<ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+			<input     [formControl]="formGroup.get('LOGNAME')" [placeholder]="starServices.getNLS([],'accountability_ACT_PAYMENT_GRID2.actpaymentAccountabilityActPaymentGrid2.LOGNAME_Hint','Please enter Logname')" />
+			</ng-template>
+			</kendo-grid-column>
+	
+		<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}" field="LOGDATE"  [width]="40"	filter="date"	 editor="date"  title="{{starServices.getNLS([],'accountability_ACT_PAYMENT_GRID2.actpaymentAccountabilityActPaymentGrid2.LOGDATE','Logdate')}}" *ngIf=false  
+	 
+	
+	 	[format]="paramConfig.DateFormat">
+			<ng-template KendoGridEditTemplate  let-dataItem>
+			<kendo-datepicker [format]="this.paramConfig.DateFormat" ngDefaultControl	 #LOGDATE
+			   >
+			</kendo-datepicker>
+			</ng-template>
+			</kendo-grid-column>
+	
+	
+	
+	
+		
+						   <kendo-grid-pdf [fileName]="PDFfileName" [allPages]="true" paperSize="A4" [repeatHeaders]="true" [landscape]="true">
+							<kendo-grid-pdf-margin top="2cm" left="1cm" right="1cm" bottom="2cm"></kendo-grid-pdf-margin>
+							<ng-template kendoGridPDFTemplate let-pageNum="pageNum" let-totalPages="totalPages">
+							 <div class="page-template">
+								<div class="header">
+								  <div style="float: center">{{ title }}</div>
+								</div>
+								<div class="footer">
+								  Page {{ pageNum }} of {{ totalPages }}
+								</div>
+							  </div>
+							</ng-template>
+						</kendo-grid-pdf>
+						<kendo-grid-excel fileName="ExcelfileName" ></kendo-grid-excel>
+		
+		</kendo-grid>
+		
+	  <app-dsp-upload (saveCompletedOutput)="this.starServices.att_img_saveGridCompletedHandler($event,this)"
+				[setComponentConfig_Input]="DSP_UPLOADConfig">
+			</app-dsp-upload>
+	
+		
+    </div>   
+
+
+
+<!--div>----------------------------------------------------------------</div-->
+
+	<div>   
+        <legend class="k-form-legend">{{ this.starServices.getNLS([],"accountability_invoices.accountability_invoices.component_title","Invoices") }}</legend>
+        <kendo-toolbar class="form-toolbar" *ngIf="showToolBar">
+            <kendo-toolbar-button  kendoButton [icon]="'print'" title="print" (click)="printScreen()" *ngIf="componentConfig.toolsShow"></kendo-toolbar-button >
+        <kendo-toolbar-separator></kendo-toolbar-separator>
+            <kendo-toolbar-button  [icon]="'search'"  title="Execute Query"  (click)="executeQuery2( form2.value);"></kendo-toolbar-button>
+            <kendo-toolbar-button   [icon]="'cancel'" title="Cancel"  (click)="onCancel($event)" ></kendo-toolbar-button >
+			<kendo-toolbar-button kendoButton  *ngIf="starServices.helpMsg !=='' " [fillMode]="isSearch ? 'outline' : 'solid' " text="{{starServices.helpMsg}}"    ></kendo-toolbar-button>		        </kendo-toolbar>
+        <kendo-pdf-export #pdf paperSize="A4" margin="2cm">
+			<div class="form-borders">
+            <form class="form-layout" class="k-form k-form-horizontal" [formGroup]="form2" >
+            <fieldset class="k-form-fieldset" class="form-fieldset" >
+        <div [ngClass]="isPhonePortrait ? 'standard' : 'wrap' ">
+	<kendo-formfield *ngIf="false" class="form-field" [orientation]="'horizontal'" >
+		<kendo-label  class="form-label" [for]="FILE_TYPE" [text]="starServices.getNLS([],'accountability_invoices.actinvoicesActInvoicesGrid.FILE_TYPE','FILE_TYPE')"></kendo-label>
+		<input class="form-input" formControlName="FILE_TYPE" kendoTextBox #FILE_TYPE 
+ />
+	</kendo-formfield>
+	<kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label *ngIf="!false" class="form-label" [for]="FILE_NAME" [text]="starServices.getNLS([],'accountability_ACT_FILE_DEF_FORM.actfileDefAccountabilityActFileDefForm.FILE_NAME','File Type')"></kendo-label>
+		<kendo-combobox  #FILE_NAME class="form-field-combobox" [formControlName]="'FILE_NAME'"
+		[data]="lkpArrFILE_NAME2" [textField]="'CODETEXT_LANG'"  [valueField]="'CODE'"
+		 [placeholder]="starServices.getNLS([],'accountability_ACT_FILE_DEF_FORM.actfileDefAccountabilityActFileDefForm.FILE_NAME_Hint','Please enter File Type')" 
+		 (filterChange)="starServices.handleFilterCode(this, $event)" 
+		[valuePrimitive]="true"  [kendoDropDownFilter]="{ operator: 'contains' }">
+		</kendo-combobox>
+	</kendo-formfield>
+
+	<kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label  class="form-label" [for]="SUPPLIER" [text]="starServices.getNLS([],'accountability_invoices.actinvoicesActInvoicesGrid.SUPPLIER','Supplier')"></kendo-label>
+		<input class="form-input" formControlName="SUPPLIER" kendoTextBox #SUPPLIER 
+ />
+	</kendo-formfield>
+	
+	<!-- <kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label  class="form-label" [for]="INVOICE_NUMBER" [text]="starServices.getNLS([],'accountability_invoices.actinvoicesActInvoicesGrid.INVOICE_NUMBER','')"></kendo-label>
+		<input class="form-input" formControlName="INVOICE_NUMBER" kendoTextBox #INVOICE_NUMBER 
+ />
+	</kendo-formfield> -->
+
+	
+</div>
+<div *ngIf="false" [ngClass]="isPhonePortrait ? 'standard' : 'wrap' ">
+	
+	<kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label  class="form-label" [for]="INVOICE_DATE" [text]="starServices.getNLS([],'accountability_files_match.actpaymentActPaymentGrid.INVOICE_DATE','From Date')"></kendo-label>
+		<kendo-datepicker [format]="this.paramConfig.DateFormat" class="form-field-date" formControlName="INVOICE_DATE"  #INVOICE_DATE 
+  		[placeholder]="starServices.getNLS([],'accountability_FILES_MATCH.accountabilityFilesMatchFromDate.INVOICE_DATE_FROM_Hint','From Date')" 
+		></kendo-datepicker>
+	</kendo-formfield>
+
+	<kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label  class="form-label" [for]="INVOICE_DATE" [text]="starServices.getNLS([],'accountability_files_match.actpaymentActPaymentGrid.INVOICE_DATE','To Date')"></kendo-label>
+		<kendo-datepicker [format]="this.paramConfig.DateFormat" class="form-field-date" formControlName="INVOICE_DATE"  #INVOICE_DATE 
+  		[placeholder]="starServices.getNLS([],'accountability_FILES_MATCH.accountabilityFilesMatchFromDate.INVOICE_DATE_TO_Hint','To Date')" 
+		></kendo-datepicker>
+	</kendo-formfield>
+
+	<button class="k-button k-primary" kendoButton (click)="executeQuery2( form2.value);" >Retrieve</button>
+
+	<!-- <kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label  class="form-label" [for]="INVOICE_AMOUNT" [text]="starServices.getNLS([],'accountability_invoices.actinvoicesActInvoicesGrid.INVOICE_AMOUNT','')"></kendo-label>
+		<input class="form-input" formControlName="INVOICE_AMOUNT" kendoTextBox #INVOICE_AMOUNT 
+ />
+	</kendo-formfield> -->
+
+	<kendo-formfield *ngIf="false" class="form-field" [orientation]="'horizontal'" >
+		<kendo-label  class="form-label" [for]="STATUS" [text]="starServices.getNLS([],'accountability_invoices.actinvoicesActInvoicesGrid.STATUS','STATUS')"></kendo-label>
+		<input class="form-input" formControlName="STATUS" kendoTextBox #STATUS 
+ />
+	</kendo-formfield>
+
+
+</div>
+
+            </fieldset>
+            </form>
+		</div>
+       
+
+    </kendo-pdf-export>
+	
+<h6>Choose an Invoice row with Date and Amount greater than the Payment Date and Amount.</h6>
+		<kendo-grid [rowClass]="ROW_CLASS"
+		
+		id="invoiceGrid" [sortable]="true" [height]="500"
+		#invoiceGrid
+		[data]="invoiceGridData"
+		(drop)="onDrop($event, invoiceGrid, paymentGrid)"
+		(dragover)="onDragOver($event, invoiceGrid)"
+		(dragstart)="onDragStart($event, invoiceGrid)"
+		[resizable] ="true"
+		[filter]="state2.filter"
+		[filterable]= "isFilterable"
+		[columnMenu]="isColumnMenu"
+		(dataStateChange)="dataStateChange2($event)"
+		[resizable]="true"
+		[sortable]="true">
+	
+		
+		
+		  
+			<ng-template kendoGridToolbarTemplate *ngIf="showToolBar">
+			<!-- <legend class="k-form-legend" *ngIf="componentConfig.showTitle">{{ title2 }}</legend> -->
+			<h6 class="k-form-legend" *ngIf="componentConfig.showTitle">{{ title2 }}</h6>
+	
+			
+			
+			
+			<button  kendoButton [icon]="'print'" title="print" (click)="printScreen()" *ngIf="componentConfig.toolsShow"></button >
+	
+			
+				<button  [disabled]="isSearch" kendoButton  title="Enter Query" (click)="enterQuery(invoiceGrid);" *ngIf="componentConfig.queryable">{{starServices.getNLS([],'ENTER_QUERY','Enter Query')}}</button >
+				<button  [fillMode]="isSearch ? 'outline' : 'solid' " kendoButton [icon]="'zoom'" title="Execute Query"  (click)="executeQuery2(invoiceGrid);" *ngIf="componentConfig.queryable"></button >
+				<button  [fillMode]="isSearch ? 'outline' : 'solid' " kendoButton [icon]="'cancel'" title="Cancel"  (click)="cancelHandler()" ></button >
+			
+	
+	
+			
+			<button  kendoButton [icon]="'menu'" title="Show/Hide Menu"  (click)="toggleColumnMenu()" ></button >
+				<div *ngIf="isColumnMenu">
+					<button  kendoButton [icon]="'filter'" title="Show/Hide Filter options"  (click)="toggleFilter()" ></button >
+				<button  [icon]="'file-pdf'" title="Export to PDF"  kendoGridPDFCommand ></button >
+				<button  [icon]="'file-excel'" title="Export to Excel"  kendoGridExcelCommand ></button > 
+				</div>
+				
+				<button  kendoButton *ngIf="starServices.helpMsg_grid !=='' " [fillMode]="isSearch ? 'outline' : 'solid' "  >{{starServices.helpMsg_grid}}</button>		
+				
+	
+		
+		</ng-template>
+	
+	
+		<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}" field="FILE_TYPE" title="{{starServices.getNLS([],'accountability_ACT_INVOICES_GRID2.actinvoicesAccountabilityActInvoicesGrid2.FILE_TYPE','File Type')}}" [width]="120"   *ngIf=false    
+		
+	
+	  >
+			<ng-template kendoGridCellTemplate let-dataItem> {{lkpArrGetFILE_TYPE(dataItem.FILE_TYPE)?.CODETEXT_LANG}} </ng-template>
+			<ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+			<kendo-dropdownlist  [data]="lkpArrFILE_TYPE"  textField="CODETEXT_LANG" valueField="CODE"
+			
+			[valuePrimitive]="true" [formControl]="formGroup.get('FILE_TYPE')">
+			</kendo-dropdownlist>
+			</ng-template>
+		</kendo-grid-column>
+	
+		<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}"  field="FILE_NAME"
+		
+	
+		 title="{{starServices.getNLS([],'accountability_ACT_INVOICES_GRID2.actinvoicesAccountabilityActInvoicesGrid2.FILE_NAME','File Name')}}"  [width]="120">
+			 <ng-template kendoGridCellTemplate let-dataItem> {{dataItem.FILE_NAME}}</ng-template>
+			<ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+			<input     [formControl]="formGroup.get('FILE_NAME')" [placeholder]="starServices.getNLS([],'accountability_ACT_INVOICES_GRID2.actinvoicesAccountabilityActInvoicesGrid2.FILE_NAME_Hint','Please enter File Name')" />
+			</ng-template>
+			</kendo-grid-column>
+	
+		<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}" field="INVOICE_NUMBER"
+		
+	
+	 		 title="{{starServices.getNLS([],'accountability_ACT_INVOICES_GRID2.actinvoicesAccountabilityActInvoicesGrid2.INVOICE_NUMBER','Number')}}"  [width]="80">
+			 <ng-template kendoGridCellTemplate let-dataItem> {{dataItem.INVOICE_NUMBER}}</ng-template>
+			<ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+			<input     [formControl]="formGroup.get('INVOICE_NUMBER')" [placeholder]="starServices.getNLS([],'accountability_ACT_INVOICES_GRID2.actinvoicesAccountabilityActInvoicesGrid2.INVOICE_NUMBER_Hint','Please enter Invoice Number')" />
+			</ng-template>
+			</kendo-grid-column>
+	
+		<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}"  field="SUPPLIER"
+		
+	
+	 	 title="{{starServices.getNLS([],'accountability_ACT_INVOICES_GRID2.actinvoicesAccountabilityActInvoicesGrid2.SUPPLIER','Supplier')}}"  [width]="120">
+			 <ng-template kendoGridCellTemplate let-dataItem> {{dataItem.SUPPLIER}}</ng-template>
+			<ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+			<input     [formControl]="formGroup.get('SUPPLIER')" [placeholder]="starServices.getNLS([],'accountability_ACT_INVOICES_GRID2.actinvoicesAccountabilityActInvoicesGrid2.SUPPLIER_Hint','Please enter Supplier')" />
+			</ng-template>
+			</kendo-grid-column>
+	
+		<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}" field="INVOICE_DATE"  [width]="80"	filter="date"	 editor="date"  title="{{starServices.getNLS([],'accountability_ACT_INVOICES_GRID2.actinvoicesAccountabilityActInvoicesGrid2.INVOICE_DATE','Invoice Date')}}" 
+	
+	
+	 		[format]="paramConfig.DateFormat">
+			<ng-template KendoGridEditTemplate  let-dataItem>
+			<kendo-datepicker [format]="this.paramConfig.DateFormat" ngDefaultControl	 #INVOICE_DATE
+			   >
+			</kendo-datepicker>
+			</ng-template>
+			</kendo-grid-column>
+	
+		<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}"  field="INVOICE_AMOUNT"
+		
+	
+	 		 title="{{starServices.getNLS([],'accountability_ACT_INVOICES_GRID2.actinvoicesAccountabilityActInvoicesGrid2.INVOICE_AMOUNT','Invoice Amount')}}"  [width]="80">
+			 <ng-template kendoGridCellTemplate let-dataItem> {{dataItem.INVOICE_AMOUNT}}</ng-template>
+			<ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+			<input     [formControl]="formGroup.get('INVOICE_AMOUNT')" [placeholder]="starServices.getNLS([],'accountability_ACT_INVOICES_GRID2.actinvoicesAccountabilityActInvoicesGrid2.INVOICE_AMOUNT_Hint','Please enter Invoice Amount')" />
+			</ng-template>
+			</kendo-grid-column>
+					 
+
+		<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}"  field="STATUS"
+		title="{{starServices.getNLS([],'accountability_ACT_INVOICES_GRID2.actinvoicesAccountabilityActInvoicesGrid2.STATUS','Status')}}"  [width]="80">
+	   <ng-template kendoGridCellTemplate let-dataItem> {{dataItem.STATUS}}</ng-template>
+	  <ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+	  <input     [formControl]="formGroup.get('STATUS')" [placeholder]="starServices.getNLS([],'accountability_ACT_INVOICES_GRID2.actinvoicesAccountabilityActInvoicesGrid2.STATUS_Hint','Please enter Payment Ref')" />
+	  </ng-template>
+	  </kendo-grid-column>
+
+		  <kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}"  field="PAYMENT_REF"
+		  title="{{starServices.getNLS([],'accountability_ACT_INVOICES_GRID2.actinvoicesAccountabilityActInvoicesGrid2.PAYMENT_REF','Payment Ref')}}"  [width]="80">
+		 <ng-template kendoGridCellTemplate let-dataItem> {{dataItem.PAYMENT_REF}}</ng-template>
+		<ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+		<input     [formControl]="formGroup.get('PAYMENT_REF')" [placeholder]="starServices.getNLS([],'accountability_ACT_INVOICES_GRID2.actinvoicesAccountabilityActInvoicesGrid2.PAYMENT_REF_Hint','Please enter Payment Ref')" />
+		</ng-template>
+		</kendo-grid-column>
+		
+		
+	
+		<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}"  field="LOGNAME" *ngIf=false  
+		
+	
+	 	 title="{{starServices.getNLS([],'accountability_ACT_INVOICES_GRID2.actinvoicesAccountabilityActInvoicesGrid2.LOGNAME','Logname')}}"  [width]="120">
+			 <ng-template kendoGridCellTemplate let-dataItem> {{dataItem.LOGNAME}}</ng-template>
+			<ng-template kendoGridEditTemplate let-dataItem let-formGroup="formGroup">
+			<input    [formControl]="formGroup.get('LOGNAME')" [placeholder]="starServices.getNLS([],'accountability_ACT_INVOICES_GRID2.actinvoicesAccountabilityActInvoicesGrid2.LOGNAME_Hint','Please enter Logname')" />
+			</ng-template>
+			</kendo-grid-column>
+	
+		<kendo-grid-column [headerStyle]="{'white-space': 'pre-wrap'}" field="LOGDATE"  [width]="40"	filter="date"	 editor="date"  title="{{starServices.getNLS([],'accountability_ACT_INVOICES_GRID2.actinvoicesAccountabilityActInvoicesGrid2.LOGDATE','Logdate')}}" *ngIf=false  
+	 
+	
+			[format]="paramConfig.DateFormat">
+			<ng-template KendoGridEditTemplate  let-dataItem>
+			<kendo-datepicker [format]="this.paramConfig.DateFormat" ngDefaultControl	 #LOGDATE
+			  >
+			</kendo-datepicker>
+			</ng-template>
+			</kendo-grid-column>
+	
+	
+	
+	
+		
+						   <kendo-grid-pdf [fileName]="PDFfileName" [allPages]="true" paperSize="A4" [repeatHeaders]="true" [landscape]="true">
+							<kendo-grid-pdf-margin top="2cm" left="1cm" right="1cm" bottom="2cm"></kendo-grid-pdf-margin>
+							<ng-template kendoGridPDFTemplate let-pageNum="pageNum" let-totalPages="totalPages">
+							 <div class="page-template">
+								<div class="header">
+								  <div style="float: center">{{ title }}</div>
+								</div>
+								<div class="footer">
+								  Page {{ pageNum }} of {{ totalPages }}
+								</div>
+							  </div>
+							</ng-template>
+						</kendo-grid-pdf>
+						<kendo-grid-excel fileName="ExcelfileName" ></kendo-grid-excel>
+		
+		</kendo-grid>
+		
+	 
+	
+		
+    </div>   
+
+	
+	
+	
+</div>
+
+	<!-- <app-accountability-act-payment-grid2  [detail_Input]="grid_0_ACT_PAYMENT"  
+	(readCompletedOutput)="readCompletedHandler($event)"
+	(clearCompletedOutput)="clearCompletedHandler($event)"
+	(saveCompletedOutput)="saveCompletedHandler($event)"
+	[setComponentConfig_Input]="ACT_PAYMENTGrid_0Config">
+</app-accountability-act-payment-grid2 > -->

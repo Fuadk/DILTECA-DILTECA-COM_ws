@@ -1,0 +1,43 @@
+    <div>   
+<kendo-tilelayout 
+[columns]="1" [gap]="gap" 
+[resizable]="true" 
+[reorderable]="true">
+<kendo-tilelayout-item [col]="1" ><!--kendo-tilelayout-item-body-->
+        <app-accountability-act-rule-def-form  
+                      (readCompletedOutput)="readCompletedHandler($event)"
+                      (clearCompletedOutput)="clearCompletedHandler($event)"
+                      (saveCompletedOutput)="saveCompletedHandler($event)"
+                      [setComponentConfig_Input]="ACT_RULE_DEFForm_0Config">
+        </app-accountability-act-rule-def-form >
+
+<!--/kendo-tilelayout-item-body-->
+</kendo-tilelayout-item>
+</kendo-tilelayout>
+<kendo-tilelayout 
+[columns]="1" [gap]="gap" 
+[resizable]="true" 
+[reorderable]="true">
+<kendo-tilelayout-item [col]="1" ><!--kendo-tilelayout-item-body-->
+        <app-accountability-act-rule-item-grid  [detail_Input]="grid_1_ACT_RULE_ITEM"  
+                      [setComponentConfig_Input]="ACT_RULE_ITEMGrid_1Config">
+        </app-accountability-act-rule-item-grid >
+
+
+<!--/kendo-tilelayout-item-body-->
+</kendo-tilelayout-item>
+</kendo-tilelayout>
+<kendo-tilelayout 
+[columns]="1" [gap]="gap" 
+[resizable]="true" 
+[reorderable]="true">
+<kendo-tilelayout-item [col]="1" ><!--kendo-tilelayout-item-body-->
+        <app-accountability-act-rule-action-grid  [detail_Input]="grid_2_ACT_RULE_ACTION"  
+                      [setComponentConfig_Input]="ACT_RULE_ACTIONGrid_2Config">
+        </app-accountability-act-rule-action-grid >
+
+<!--/kendo-tilelayout-item-body-->
+</kendo-tilelayout-item>
+</kendo-tilelayout>
+
+    </div>   

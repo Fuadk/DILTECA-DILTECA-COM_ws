@@ -1,0 +1,56 @@
+<div>
+    <legend class="k-form-legend">{{ title }}</legend>
+
+<kendo-toolbar class="form-toolbar" *ngIf="showToolBar" >
+    <kendo-toolbar-button kendoButton [disabled]="isSearch"  [icon]="'save'" title="save" (click)="saveChanges( form)"></kendo-toolbar-button>
+    <kendo-toolbar-button  kendoButton [icon]="'print'" title="print" (click)="printScreen()" ></kendo-toolbar-button >
+
+<kendo-toolbar-separator></kendo-toolbar-separator><kendo-toolbar-separator></kendo-toolbar-separator><kendo-toolbar-separator></kendo-toolbar-separator>
+    <kendo-toolbar-button [disabled]="isSearch"  text="{{starServices.getNLS([],'ENTER_QUERY','Enter Query')}}" title="{{starServices.getNLS([],'ENTER_QUERY','Enter Query')}}" (click)="enterQuery( form);"></kendo-toolbar-button>
+    <kendo-toolbar-button [fillMode]="isSearch ? 'outline' : 'solid' " [icon]="'search'"  title="{{starServices.getNLS([],'EXECUTE_QUERY','Execute Query')}}"  (click)="executeQuery( form.value);"></kendo-toolbar-button>
+    <kendo-toolbar-button  [fillMode]="isSearch ? 'outline' : 'solid' " [icon]="'cancel'" title="Cancel"  (click)="onCancel($event)" ></kendo-toolbar-button >
+<kendo-toolbar-separator></kendo-toolbar-separator><kendo-toolbar-separator></kendo-toolbar-separator><kendo-toolbar-separator></kendo-toolbar-separator>
+    <kendo-toolbar-button  [icon]="'arrow-double-60-left'" title="First Record" (click)="goRecord( 'first');" *ngIf="!isSearch"></kendo-toolbar-button>
+    <kendo-toolbar-button  [icon]="'arrow-60-left'"  title="Previous Record"  (click)="goRecord(  'prev');" *ngIf="!isSearch"></kendo-toolbar-button>
+    <kendo-toolbar-button  [icon]="'arrow-60-right'" title="Next Record"  (click)="goRecord('next')" *ngIf="!isSearch"></kendo-toolbar-button >
+    <kendo-toolbar-button  [icon]="'arrow-double-60-right'" title="Last Record" (click)="goRecord('last')" *ngIf="!isSearch"></kendo-toolbar-button>
+<kendo-toolbar-separator></kendo-toolbar-separator><kendo-toolbar-separator></kendo-toolbar-separator><kendo-toolbar-separator></kendo-toolbar-separator>
+    <kendo-toolbar-button [icon]="'plus'" title="Insert Record" (click)="onNew($event);" *ngIf="!isSearch"></kendo-toolbar-button>
+    <kendo-toolbar-button [icon]="'trash'" title="Delete Record" (click)="onRemove( form);" *ngIf="!isSearch">Remove</kendo-toolbar-button>
+<kendo-toolbar-button kendoButton  *ngIf="starServices.helpMsg !=='' " [fillMode]="isSearch ? 'outline' : 'solid' " text="{{starServices.helpMsg}}"    ></kendo-toolbar-button>		
+</kendo-toolbar>
+
+<kendo-pdf-export #pdf paperSize="A4" margin="2cm">
+    <form class="form-layout"  class="k-form k-form-horizontal" [formGroup]="form">
+    <fieldset class="k-form-fieldset">
+
+
+<div class="wrap">
+	<kendo-formfield class="form-field" [orientation]="'horizontal'">
+<kendo-label class="form-label" [for]="GROUPNAME" text="Groupname"></kendo-label>
+<input class="form-input" formControlName="GROUPNAME" kendoTextBox #GROUPNAME  
+required [readonly]="primarKeyReadOnlyArr.isGROUPNAMEreadOnly" />
+</kendo-formfield>
+
+	<kendo-formfield class="form-field" [orientation]="'horizontal'">
+<kendo-label class="form-label" [for]="FULLNAME" text="Fullname"></kendo-label>
+<input style="width: 400px;"  formControlName="FULLNAME" kendoTextBox #FULLNAME />
+</kendo-formfield>
+
+	<!--kendo-formfield class="form-field" [orientation]="'horizontal'">
+<kendo-label class="form-label" [for]="DEFAULT_PRINTER" text="Default Printer"></kendo-label>
+<input class="form-input" formControlName="DEFAULT_PRINTER" kendoTextBox #DEFAULT_PRINTER />
+</kendo-formfield-->
+</div>
+
+
+
+
+
+
+    </fieldset>
+    </form>
+</kendo-pdf-export>
+</div>
+
+

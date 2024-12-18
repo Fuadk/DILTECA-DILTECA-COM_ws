@@ -1,0 +1,68 @@
+    <div>   
+        <legend class="k-form-legend">{{ this.starServices.getNLS([],"accountability_payments.accountability_payments.component_title","Payments") }}</legend>
+        <kendo-toolbar class="form-toolbar" *ngIf="showToolBar">
+            <kendo-toolbar-button  kendoButton [icon]="'print'" title="print" (click)="printScreen()" *ngIf="componentConfig.toolsShow"></kendo-toolbar-button >
+        <kendo-toolbar-separator></kendo-toolbar-separator>
+            <kendo-toolbar-button  [icon]="'search'"  title="Execute Query"  (click)="executeQuery( form.value);"></kendo-toolbar-button>
+            <kendo-toolbar-button   [icon]="'cancel'" title="Cancel"  (click)="onCancel($event)" ></kendo-toolbar-button >
+			<kendo-toolbar-button kendoButton  *ngIf="starServices.helpMsg !=='' " [fillMode]="isSearch ? 'outline' : 'solid' " text="{{starServices.helpMsg}}"    ></kendo-toolbar-button>		        </kendo-toolbar>
+        <kendo-pdf-export #pdf paperSize="A4" margin="2cm">
+            <form class="form-layout" class="k-form k-form-horizontal" [formGroup]="form" >
+            <fieldset class="k-form-fieldset" class="form-fieldset" >
+        <div [ngClass]="isPhonePortrait ? 'standard' : 'wrap' ">
+	<kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label  class="form-label" [for]="FILE_TYPE" [text]="starServices.getNLS([],'accountability_payments.actpaymentActPaymentGrid.FILE_TYPE','FILE_TYPE')"></kendo-label>
+		<input class="form-input" formControlName="FILE_TYPE" kendoTextBox #FILE_TYPE 
+ />
+	</kendo-formfield>
+
+	<kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label  class="form-label" [for]="FILE_NAME" [text]="starServices.getNLS([],'accountability_payments.actpaymentActPaymentGrid.FILE_NAME','FILE_NAME')"></kendo-label>
+		<input class="form-input" formControlName="FILE_NAME" kendoTextBox #FILE_NAME 
+ />
+	</kendo-formfield>
+
+	<!-- <kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label  class="form-label" [for]="PAYMENT_NUMBER" [text]="starServices.getNLS([],'accountability_payments.actpaymentActPaymentGrid.PAYMENT_NUMBER','')"></kendo-label>
+		<input class="form-input" formControlName="PAYMENT_NUMBER" kendoTextBox #PAYMENT_NUMBER 
+ />
+	</kendo-formfield> -->
+
+	<kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label  class="form-label" [for]="PAYMENT_DATE" [text]="starServices.getNLS([],'accountability_payments.actpaymentActPaymentGrid.PAYMENT_DATE','PAYMENT_DATE')"></kendo-label>
+		<input class="form-input" formControlName="PAYMENT_DATE" kendoTextBox #PAYMENT_DATE 
+ />
+	</kendo-formfield>
+
+	<kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label  class="form-label" [for]="PAYMENT_DESCRIPTION" [text]="starServices.getNLS([],'accountability_payments.actpaymentActPaymentGrid.PAYMENT_DESCRIPTION','DESCRIPTION')"></kendo-label>
+		<input class="form-input" formControlName="PAYMENT_DESCRIPTION" kendoTextBox #PAYMENT_DESCRIPTION 
+ />
+	</kendo-formfield>
+
+	<!-- <kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label  class="form-label" [for]="PAYMENT_AMOUNT" [text]="starServices.getNLS([],'accountability_payments.actpaymentActPaymentGrid.PAYMENT_AMOUNT','')"></kendo-label>
+		<input class="form-input" formControlName="PAYMENT_AMOUNT" kendoTextBox #PAYMENT_AMOUNT 
+ />
+	</kendo-formfield> -->
+
+	<kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label  class="form-label" [for]="STATUS" [text]="starServices.getNLS([],'accountability_payments.actpaymentActPaymentGrid.STATUS','STATUS')"></kendo-label>
+		<input class="form-input" formControlName="STATUS" kendoTextBox #STATUS 
+ />
+	</kendo-formfield>
+
+
+</div>
+
+            </fieldset>
+            </form>
+        <app-accountability-act-payment-grid  [detail_Input]="grid_0_ACT_PAYMENT"  
+                      (readCompletedOutput)="readCompletedHandler($event)"
+                      (clearCompletedOutput)="clearCompletedHandler($event)"
+                      (saveCompletedOutput)="saveCompletedHandler($event)"
+                      [setComponentConfig_Input]="ACT_PAYMENTGrid_0Config">
+        </app-accountability-act-payment-grid >
+
+    </kendo-pdf-export>
+    </div>   

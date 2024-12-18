@@ -1,0 +1,151 @@
+<div>
+    <legend  class="k-form-legend">{{ this.starServices.getNLS([],"accountability_ACT_PAYMENT_FORM.actpaymentAccountabilityActPaymentForm.component_title","Act Payment Accountability Act Payment Form") }}</legend>
+<div class="form-toolbar"> </div>
+<kendo-toolbar class="form-toolbar" *ngIf="showToolBar">
+    <kendo-toolbar-button kendoButton [icon]="'save'" title="{{starServices.getNLS([],'SAVE','Save')}}" (click)="saveChanges( form)" *ngIf="!isChild && componentConfig.updateable && !isSearch"></kendo-toolbar-button>
+     <kendo-toolbar-button  kendoButton [icon]="'print'" title="{{starServices.getNLS([],'PRINT','Print')}}" (click)="printScreen()" *ngIf="componentConfig.toolsShow"></kendo-toolbar-button >
+
+
+
+    <kendo-toolbar-button [disabled]="isSearch"  text="{{starServices.getNLS([],'ENTER_QUERY','Enter Query')}}" title="{{starServices.getNLS([],'ENTER_QUERY','Enter Query')}}" (click)="enterQuery( form);" *ngIf="componentConfig.queryable"></kendo-toolbar-button>
+    <kendo-toolbar-button [fillMode]="isSearch ? 'outline' : 'solid' " [icon]="'search'"  title="{{starServices.getNLS([],'EXECUTE_QUERY','Execute Query')}}"  (click)="executeQuery( form.value);" *ngIf="componentConfig.queryable"></kendo-toolbar-button>
+    <kendo-toolbar-button  [fillMode]="isSearch ? 'outline' : 'solid' "  [icon]="'cancel'"  title="{{starServices.getNLS([],'CANCEL','Cancel')}}"  (click)="onCancel($event)" *ngIf="componentConfig.queryable"></kendo-toolbar-button >
+
+
+    <kendo-toolbar-button  [icon]="'arrow-double-60-left'" title="{{starServices.getNLS([],'FIRST_RECORD','First Record')}}" (click)="goRecord( 'first');" *ngIf="componentConfig.navigable && !isSearch"></kendo-toolbar-button>
+    <kendo-toolbar-button  [icon]="'arrow-60-left'"  title="{{starServices.getNLS([],'PREVIOUS_RECORD','Previous Record')}}"  (click)="goRecord(  'prev');" *ngIf="componentConfig.navigable && !isSearch"></kendo-toolbar-button>
+    <kendo-toolbar-button  [icon]="'arrow-60-right'" title="{{starServices.getNLS([],'NEXT_RECORD','Next Record')}}"  (click)="goRecord('next')" *ngIf="componentConfig.navigable && !isSearch"></kendo-toolbar-button >
+    <kendo-toolbar-button  [icon]="'arrow-double-60-right'" title="{{starServices.getNLS([],'LAST_RECORD','Last Record')}}" (click)="goRecord('last')" *ngIf="componentConfig.navigable && !isSearch"></kendo-toolbar-button>
+
+<kendo-toolbar-button [icon]="'plus'" title="Insert Record" (click)="onNew($event);" *ngIf="!isSearch"></kendo-toolbar-button>
+<kendo-toolbar-button [icon]="'trash'" title="Delete Record" (click)="onRemove( form);" *ngIf="!isSearch">Remove</kendo-toolbar-button>
+<kendo-toolbar-button kendoButton  *ngIf="starServices.helpMsg !=='' " [fillMode]="isSearch ? 'outline' : 'solid' " text="{{starServices.helpMsg}}"    ></kendo-toolbar-button>		
+</kendo-toolbar>
+<kendo-pdf-export #pdf paperSize="A4" margin="2cm">
+    <form class="form-layout" class="k-form k-form-horizontal" [formGroup]="form" (click)="ON_CLICK(form.value)">
+    <fieldset class="form-fieldset"  class="k-form-fieldset" [disabled]="!componentConfig.enabled">
+
+
+<div [ngClass]="isPhonePortrait ? 'standard' : 'wrap' ">
+	<kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label *ngIf="!false" class="form-label" [for]="FILE_TYPE" [text]="starServices.getNLS([],'accountability_ACT_PAYMENT_FORM.actpaymentAccountabilityActPaymentForm.FILE_TYPE','File Type')"></kendo-label>
+		<kendo-combobox  #FILE_TYPE class="form-field-combobox" [formControlName]="'FILE_TYPE'"
+		[data]="lkpArrFILE_TYPE" [textField]="'CODETEXT_LANG'"  [valueField]="'CODE'"
+
+		[ngClass]="{ 'ng-invalid-required  ng-touched': submitted && f.FILE_TYPE.errors }"  required 
+		[readonly]="primarKeyReadOnlyArr.isFILE_TYPEreadOnly" [placeholder]="starServices.getNLS([],'accountability_ACT_PAYMENT_FORM.actpaymentAccountabilityActPaymentForm.FILE_TYPE_Hint','Please enter File Type')" (valueChange)="onValueChange_FILE_TYPE($event)"   
+		 (filterChange)="starServices.handleFilterCode(this, $event)" 
+		[valuePrimitive]="true"  [kendoDropDownFilter]="{ operator: 'contains' }">
+		 <ng-template kendoDropDownListNoDataTemplate>
+		 <div> 
+		 	<button *ngIf="filterCode" kendoButton (click)="starServices.addNewCode(this, 'FILE_TYPE')"> 
+		 		{{starServices.getNLS([],'ADD_NEW_ITEM','Add new item')}} 
+		 	</button> 
+		 </div> 
+		 </ng-template> 
+		</kendo-combobox>
+	</kendo-formfield>
+
+	<kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label *ngIf="!false" class="form-label" [for]="FILE_NAME" [text]="starServices.getNLS([],'accountability_ACT_PAYMENT_FORM.actpaymentAccountabilityActPaymentForm.FILE_NAME','File Name')"></kendo-label>
+		<kendo-combobox  #FILE_NAME class="form-field-combobox" [formControlName]="'FILE_NAME'"
+		[data]="lkpArrFILE_NAME" [textField]="'CODETEXT_LANG'"  [valueField]="'CODE'"
+
+		[ngClass]="{ 'ng-invalid-required  ng-touched': submitted && f.FILE_NAME.errors }"  required 
+		[readonly]="primarKeyReadOnlyArr.isFILE_NAMEreadOnly" [placeholder]="starServices.getNLS([],'accountability_ACT_PAYMENT_FORM.actpaymentAccountabilityActPaymentForm.FILE_NAME_Hint','Please enter File Name')" (valueChange)="onValueChange_FILE_NAME($event)"   
+		 (filterChange)="starServices.handleFilterCode(this, $event)" 
+		[valuePrimitive]="true"  [kendoDropDownFilter]="{ operator: 'contains' }">
+		 <ng-template kendoDropDownListNoDataTemplate>
+		 <div> 
+		 	<button *ngIf="filterCode" kendoButton (click)="starServices.addNewCode(this, 'FILE_NAME')"> 
+		 		{{starServices.getNLS([],'ADD_NEW_ITEM','Add new item')}} 
+		 	</button> 
+		 </div> 
+		 </ng-template> 
+		</kendo-combobox>
+	</kendo-formfield>
+
+	<kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label *ngIf="!false" class="form-label" [for]="PAYMENT_DATE" [text]="starServices.getNLS([],'accountability_ACT_PAYMENT_FORM.actpaymentAccountabilityActPaymentForm.PAYMENT_DATE','Payment Date')"></kendo-label>
+		<kendo-datepicker [format]="this.paramConfig.DateFormat" class="form-field-date" formControlName="PAYMENT_DATE"  #PAYMENT_DATE 
+  [placeholder]="starServices.getNLS([],'accountability_ACT_PAYMENT_FORM.actpaymentAccountabilityActPaymentForm.PAYMENT_DATE_Hint','Please enter Payment Date')" (valueChange)="onValueChange_PAYMENT_DATE($event)"   
+		></kendo-datepicker>
+	</kendo-formfield>
+
+	<kendo-formfield class="form-field" [orientation]="'horizontal'"  *ngIf=false >
+		<kendo-label *ngIf="!false" class="form-label" [for]="PAYMENT_DESCRIPTION" [text]="starServices.getNLS([],'accountability_ACT_PAYMENT_FORM.actpaymentAccountabilityActPaymentForm.PAYMENT_DESCRIPTION','Payment Description')"></kendo-label>
+		<input class="form-input" formControlName="PAYMENT_DESCRIPTION" kendoTextBox #PAYMENT_DESCRIPTION  [placeholder]="starServices.getNLS([],'accountability_ACT_PAYMENT_FORM.actpaymentAccountabilityActPaymentForm.PAYMENT_DESCRIPTION_Hint','Please enter Payment Description')"
+ (change)="onChange_PAYMENT_DESCRIPTION($event)"    />
+	</kendo-formfield>
+
+	<kendo-formfield class="form-field" [orientation]="'horizontal'" >
+		<kendo-label *ngIf="!false" class="form-label" [for]="STATUS" [text]="starServices.getNLS([],'accountability_ACT_PAYMENT_FORM.actpaymentAccountabilityActPaymentForm.STATUS','Status')"></kendo-label>
+		<kendo-combobox  #STATUS class="form-field-combobox" [formControlName]="'STATUS'"
+		[data]="lkpArrSTATUS" [textField]="'CODETEXT_LANG'"  [valueField]="'CODE'"
+  [placeholder]="starServices.getNLS([],'accountability_ACT_PAYMENT_FORM.actpaymentAccountabilityActPaymentForm.STATUS_Hint','Please enter Status')" (valueChange)="onValueChange_STATUS($event)"   
+		 (filterChange)="starServices.handleFilterCode(this, $event)" 
+		[valuePrimitive]="true"  [kendoDropDownFilter]="{ operator: 'contains' }">
+		 <ng-template kendoDropDownListNoDataTemplate>
+		 <div> 
+		 	<button *ngIf="filterCode" kendoButton (click)="starServices.addNewCode(this, 'STATUS')"> 
+		 		{{starServices.getNLS([],'ADD_NEW_ITEM','Add new item')}} 
+		 	</button> 
+		 </div> 
+		 </ng-template> 
+		</kendo-combobox>
+	</kendo-formfield>
+
+
+</div>
+<div [ngClass]="isPhonePortrait ? 'standard' : 'wrap' ">
+	<kendo-formfield class="form-field" [orientation]="'horizontal'"  *ngIf=false >
+		<kendo-label *ngIf="!false" class="form-label" [for]="PAYMENT_NUMBER" [text]="starServices.getNLS([],'accountability_ACT_PAYMENT_FORM.actpaymentAccountabilityActPaymentForm.PAYMENT_NUMBER','Payment Number')"></kendo-label>
+		<input class="form-input" formControlName="PAYMENT_NUMBER" kendoTextBox #PAYMENT_NUMBER
+		[ngClass]="{ 'ng-invalid-required  ng-touched': submitted && f.PAYMENT_NUMBER.errors }"  required 
+		[readonly]="primarKeyReadOnlyArr.isPAYMENT_NUMBERreadOnly" [placeholder]="starServices.getNLS([],'accountability_ACT_PAYMENT_FORM.actpaymentAccountabilityActPaymentForm.PAYMENT_NUMBER_Hint','Please enter Payment Number')"
+ (change)="onChange_PAYMENT_NUMBER($event)"    />
+	</kendo-formfield>
+
+	<kendo-formfield class="form-field" [orientation]="'horizontal'"  *ngIf=false >
+		<kendo-label *ngIf="!false" class="form-label" [for]="PAYMENT_AMOUNT" [text]="starServices.getNLS([],'accountability_ACT_PAYMENT_FORM.actpaymentAccountabilityActPaymentForm.PAYMENT_AMOUNT','Payment Amount')"></kendo-label>
+		<input class="form-input" formControlName="PAYMENT_AMOUNT" kendoTextBox #PAYMENT_AMOUNT  [placeholder]="starServices.getNLS([],'accountability_ACT_PAYMENT_FORM.actpaymentAccountabilityActPaymentForm.PAYMENT_AMOUNT_Hint','Please enter Payment Amount')"
+ (change)="onChange_PAYMENT_AMOUNT($event)"    />
+	</kendo-formfield>
+
+	<kendo-formfield class="form-field" [orientation]="'horizontal'"  *ngIf=false >
+		<kendo-label *ngIf="!false" class="form-label" [for]="LOGDATE" [text]="starServices.getNLS([],'accountability_ACT_PAYMENT_FORM.actpaymentAccountabilityActPaymentForm.LOGDATE','Logdate')"></kendo-label>
+		<kendo-datepicker [format]="this.paramConfig.DateFormat" class="form-field-date" formControlName="LOGDATE"  #LOGDATE 
+  [placeholder]="starServices.getNLS([],'accountability_ACT_PAYMENT_FORM.actpaymentAccountabilityActPaymentForm.LOGDATE_Hint','Please enter Logdate')" (valueChange)="onValueChange_LOGDATE($event)"   
+		></kendo-datepicker>
+	</kendo-formfield>
+
+	<kendo-formfield class="form-field" [orientation]="'horizontal'"  *ngIf=false >
+		<kendo-label *ngIf="!false" class="form-label" [for]="LOGNAME" [text]="starServices.getNLS([],'accountability_ACT_PAYMENT_FORM.actpaymentAccountabilityActPaymentForm.LOGNAME','Logname')"></kendo-label>
+		<input class="form-input" formControlName="LOGNAME" kendoTextBox #LOGNAME  [placeholder]="starServices.getNLS([],'accountability_ACT_PAYMENT_FORM.actpaymentAccountabilityActPaymentForm.LOGNAME_Hint','Please enter Logname')"
+ (change)="onChange_LOGNAME($event)"    />
+	</kendo-formfield>
+</div>
+
+    </fieldset>
+    </form>
+    <app-dsp-upload (saveCompletedOutput)="this.starServices.att_img_saveFormCompletedHandler($event,this)"
+			[setComponentConfig_Input]="DSP_UPLOADConfig">
+		</app-dsp-upload>
+</kendo-pdf-export>
+</div>
+
+<div [hidden]="!showCodeDetails">
+	<kendo-dialog 
+	(close)="showCodeDetails=false;setlookupArrDef();" resizable="true" [minWidth]="800" [width]="700" [height]="500"
+	  title="Add Code">
+	  <app-som-tabs-codes-grid 
+	  [detail_Input]="grid_som_tabs_codes"  
+	  [setComponentConfig_Input]="SOM_TABS_CODESConfig">
+	</app-som-tabs-codes-grid>
+  
+	</kendo-dialog>
+  </div>
+  
+
+
+

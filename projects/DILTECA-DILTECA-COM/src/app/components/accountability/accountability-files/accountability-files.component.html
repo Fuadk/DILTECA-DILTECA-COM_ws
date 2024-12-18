@@ -1,0 +1,21 @@
+<div>
+  <legend class="k-form-legend">{{ this.starServices.getNLS([],"accountability_files.accountability_files.component_title","Files Uploqding") }}</legend>
+<kendo-tabstrip  [keepTabContent]="true" [tabAlignment]="alignment">
+<kendo-tabstrip-tab [selected]="true">
+    <ng-template   kendoTabTitle>
+      <legend>{{ this.starServices.getNLS([],"accountability_files.accountability_files.tab_title1","Files") }}</legend>
+     </ng-template>
+    <ng-template kendoTabContent>
+          <app-accountability-act-file-def-grid></app-accountability-act-file-def-grid >
+    </ng-template>
+  </kendo-tabstrip-tab>
+<kendo-tabstrip-tab>
+    <ng-template   kendoTabTitle>
+      <legend>{{ this.starServices.getNLS([],"accountability_files.accountability_files.tab_title2","Upload") }}</legend>
+     </ng-template>
+    <ng-template kendoTabContent>
+          <app-accountability-file-fields></app-accountability-file-fields >
+    </ng-template>
+  </kendo-tabstrip-tab>
+</kendo-tabstrip>
+</div>

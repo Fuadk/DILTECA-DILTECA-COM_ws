@@ -1,0 +1,34 @@
+    <div>   
+        <app-accountability-act-file-def-form 
+                      (readCompletedOutput)="readCompletedHandler($event)"
+                      (clearCompletedOutput)="clearCompletedHandler($event)"
+                      (saveCompletedOutput)="saveCompletedHandler($event)"
+                      [setComponentConfig_Input]="ACT_FILE_DEFForm_0Config">
+        </app-accountability-act-file-def-form >
+
+        <kendo-tabstrip  [keepTabContent]="true" [tabAlignment]="alignment">
+
+       <kendo-tabstrip-tab [selected]="2 == selectedTab " >
+       <ng-template   kendoTabTitle>
+      <legend>{{ this.starServices.getNLS([],"accountability_files_fields.accountability_files_fields.tab_title2","Invoices") }}</legend>
+       </ng-template>
+       <ng-template kendoTabContent>
+        <app-accountability-act-invoices-grid [detail_Input]="grid_1_ACT_INVOICES"  
+                      [setComponentConfig_Input]="ACT_INVOICESGrid_1Config">
+        </app-accountability-act-invoices-grid >
+
+</ng-template>
+</kendo-tabstrip-tab>
+       <kendo-tabstrip-tab [selected]="3 == selectedTab " >
+       <ng-template   kendoTabTitle>
+      <legend>{{ this.starServices.getNLS([],"accountability_files_fields.accountability_files_fields.tab_title3","Payments") }}</legend>
+       </ng-template>
+       <ng-template kendoTabContent>
+        <app-accountability-act-payment-grid [detail_Input]="grid_2_ACT_PAYMENT"  
+                      [setComponentConfig_Input]="ACT_PAYMENTGrid_2Config">
+        </app-accountability-act-payment-grid >
+
+</ng-template>
+</kendo-tabstrip-tab>
+   </kendo-tabstrip> 
+    </div>   
