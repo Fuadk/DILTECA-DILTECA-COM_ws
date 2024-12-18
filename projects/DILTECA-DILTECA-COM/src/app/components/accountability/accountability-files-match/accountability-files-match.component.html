@@ -8,6 +8,7 @@
             <kendo-toolbar-button   [icon]="'cancel'" title="Cancel"  (click)="onCancel($event)" ></kendo-toolbar-button >
 			<kendo-toolbar-button *ngIf="enableAutoMatch" themeColor="warning" text="{{starServices.getNLS([],'ENTER_QUERY','Auto Match')}}" title="{{starServices.getNLS([],'ENTER_QUERY','Enter Query')}}" (click)="autoMatch( );" ></kendo-toolbar-button>
 
+			
 			<kendo-toolbar-button kendoButton  *ngIf="starServices.helpMsg !=='' " [fillMode]="isSearch ? 'outline' : 'solid' " text="{{starServices.helpMsg}}"    ></kendo-toolbar-button>		        </kendo-toolbar>
         <kendo-pdf-export #pdf paperSize="A4" margin="2cm">
 			<div class="form-borders">
